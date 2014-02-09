@@ -1,10 +1,11 @@
-class CreateEventsUsersTable < ActiveRecord::Migration
+class PopulateEventsUsers < ActiveRecord::Migration
   def up
   	create_table :events_users, :id => false do |t|
     	t.column :user_id, :integer
     	t.column :event_id, :integer
+    end
 
-    	natasha = User.find_by_id(1)
+  		natasha = User.find_by_id(1)
 		vilde = User.find_by_id(2)
 		william = User.find_by_id(3)
 
@@ -40,10 +41,9 @@ class CreateEventsUsersTable < ActiveRecord::Migration
 		william.save()
 		william.events << Event.find_by_id(4)
 		william.save()
-    end
+
   end
 
   def down
-  	drop_table :events_users
   end
 end

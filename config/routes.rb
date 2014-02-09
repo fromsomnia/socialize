@@ -1,4 +1,6 @@
 Cs147GroupWebsite::Application.routes.draw do
+  get "events/index"
+
   # get "users/index"
 
   # The priority is based upon order of creation:
