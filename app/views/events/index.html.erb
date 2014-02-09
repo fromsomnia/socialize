@@ -1,10 +1,9 @@
 <div class="container">
-	<h1>SOCIALIZE</h1>
 	
 	<% for event in @events do %>
 		<% creator = User.find_by_id(event.user_id) %>
 
-		<div class="event">
+		<div class="event center-block">
 			<h3>
 				<a href="events/index/<%= event.user_id %>"><%= event.title %></a>
 			</h3>
