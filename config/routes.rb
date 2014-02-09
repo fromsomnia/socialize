@@ -1,4 +1,6 @@
 Cs147GroupWebsite::Application.routes.draw do
+  get "users/login_screen"
+
   get "events/index"
 
   # get "users/index"

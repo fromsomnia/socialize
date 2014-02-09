@@ -5,3 +5,9 @@
 #app_header {
 	
 }
+
+#app_nav > a {
+-webkit-border-radius: 0;
+-moz-border-radius: 0;
+border-radius: 0;
+}
