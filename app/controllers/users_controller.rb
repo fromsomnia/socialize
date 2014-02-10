@@ -1,11 +1,16 @@
 class UsersController < ApplicationController
   def index
-  	if params[:id].present? then
-  		@users = User.find(:all, :conditions => "id = #{params[:id]}")
-  	else
-  		@users = User.all()
-  	end
-  	@nav_bar = "All Users"
+  	if session[:logged_in] then
+	  	if params[:id].present? then
+	  		@users = User.find(:all, :conditions => "id = #{params[:id]}")
+	  	else
+	  		@users = User.all()
+	  	end
+	  	@nav_bar = "All Users"
+	else
+		reset_session
+		render "/events/login_screen"
+	end
   end
 
   def create

@@ -1,10 +1,14 @@
 class EventsController < ApplicationController
   def index
-  	if params[:id].present? then
-  		@events = Event.find(:all, :conditions => "id = #{params[:id]}")
-  	else
-  		@events = Event.all()
-  	end
+  	if session[:logged_in] then
+	  	if params[:id].present? then
+	  		@events = Event.find(:all, :conditions => "id = #{params[:id]}")
+	  	else
+	  		@events = Event.all()
+	  	end
+	else
+		redirect_to "/events/login_screen"
+	end
   end
 
   def login
