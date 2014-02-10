@@ -1,9 +1,9 @@
 
-<div class="container">
+<div class="container" id="all-users-container">
 	
 	<% for user in @users do %>
 		<% if user.id.to_i != session[:user_id].to_i || params[:id].to_i == user.id.to_i %>
-			<div class="user center-block">
+			<div class="user container center-block">
 				<h3>
 					<a href="/users/index/<%= user.id %>"><%= user.first_name + " " + user.last_name %></a>
 				</h3>

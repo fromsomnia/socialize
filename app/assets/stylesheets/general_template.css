@@ -4,6 +4,11 @@
 
 #app_header {
 	margin-bottom: 0;
+	background-color: #eee;
+	position: fixed;
+	padding-left: 0;
+	padding-right: 0;
+	z-index: 100;
 }
 
 #app_nav > a {
@@ -24,6 +29,8 @@ textarea.about-field {
 -webkit-border-radius: 0;
 -moz-border-radius: 0;
 border-radius: 0;
+width: 100%;
+margin: 0;
 }
 
 .event {
@@ -36,4 +43,36 @@ border-radius: 0;
 
 .edit-user-image {
 	margin: 0 auto;
+}
+
+.submit-button-block {
+	max-width: 700px;
+}
+
+#all-users-container {
+	padding-top: 150px;
+	padding-bottom: 100px;
+}
+
+#all-events-container {
+	padding-top: 150px;
+	padding-bottom: 100px;
+}
+
+#create-user-form {
+	padding-top: 150px;
+	padding-bottom: 100px;
+	z-index: -100;
+}
+
+#add-event-bar {
+	padding: 0;
+}
+
+.navbar-custom {
+	background-color: #5bc0de;
+}
+
+#edit-filler {
+	min-height: 35px;
 }
