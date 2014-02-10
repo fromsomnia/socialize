@@ -33,3 +33,7 @@ border-radius: 0;
 .user {
 	background-color: #eee;
 }
+
+.edit-user-image {
+	margin: 0 auto;
+}

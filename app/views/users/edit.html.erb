@@ -1,39 +1,46 @@
 <div class="container" id="create_user_form">
-	<%= form_for @new_user, url: {action: "save"}, html: {class: "form-horizontal", role: "form"} do |f|%>
+	<%= form_for @user, url: {action: "update"}, html: {class: "form-horizontal", role: "form"} do |f| %>
 		<div class="form-group">
 	  		<%= label_tag(:first_name, "First Name", class: "col-sm-2 control-label" ) %>
 	    	<div class="col-sm-10">
-	    		<%= f.text_field(:first_name, class: "form-control", placeholder: "First Name") %>
+	    		<%= f.text_field(:first_name, class: "form-control", value: "#{@user.first_name}") %>
 	    	</div>
 	    </div>
 	    <div class="form-group">
 	  		<%= label_tag(:last_name, "Last Name", class: "col-sm-2 control-label" ) %>
 	    	<div class="col-sm-10">
-	    		<%= f.text_field(:last_name, class: "form-control", placeholder: "Last Name") %>
+	    		<%= f.text_field(:last_name, class: "form-control", value: "#{@user.last_name}") %>
 	    	</div>
 	    </div>
 	    <div class="form-group">
 	  		<%= label_tag(:description, "About Me", class: "col-sm-2 control-label") %>
 	    	<div class="col-sm-10">
-	    		<%= f.text_area(:description, class: "form-control about-field", placeholder: "About Me...") %>
+	    		<%= f.text_area(:description, class: "form-control about-field", value: "#{@user.description}") %>
 	    	</div>
 	    </div>
-	    <div class="form-group">
+
+	    <div class="form-group container">
+		    <div class="center-block">
+		   		<img src="<%= @user.image_url %>" class="img-responsive edit-user-image img-rounded" alt="<%= @user.first_name %>">
+		   	</div>
+		</div>
+
+	    <div class="form-group container center-block">
 	  		<%= label_tag(:image_url, "Profile Picture URL", class: "col-sm-2 control-label") %>
 	    	<div class="col-sm-10">
-	    		<%= f.text_field(:image_url, class: "form-control", placeholder: "Insert URL Here") %>
+	    		<%= f.text_field(:image_url, class: "form-control", value: "#{@user.image_url}") %>
 	    	</div>
 	    </div>
 	  <div class="form-group">
 	  	<%= label_tag(:username, "Username", class: "col-sm-2 control-label" ) %>
 	    <div class="col-sm-10">
-	    	<%= f.text_field(:username, class: "form-control", placeholder: "Username") %>
+	    	<%= f.text_field(:username, class: "form-control", value: "#{@user.username}") %>
 	    </div>
 	  </div>
 	  <div class="form-group">
 	    <%= label_tag(:password, "Password", class: "col-sm-2 control-label" ) %>
 	    <div class="col-sm-10">
-	    	<%= f.password_field(:password, class: "form-control", placeholder: "Password") %>
+	    	<%= f.password_field(:password, class: "form-control", value: "#{@user.password}") %>
 	    </div>
 	  </div>
 	  <div class="form-group">
@@ -41,5 +48,10 @@
 	    	<%= f.submit "Update", class: "btn btn-primary btn-block", id: "update_button" %>
 	    </div>
 	  </div>
+	   <div class="form-group">
+		   <div class="col-sm-offset-2 col-sm-10">
+		  	<a href="/users/index/<%= @user.id %>" class="btn btn-danger btn-block" id="friends_button" role="button">Cancel</a>
+		  </div>
+		</div>
 	<% end %>
 </div>

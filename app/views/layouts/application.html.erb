@@ -31,6 +31,15 @@
 	<a href="/users/index/<%= home_account %>" class="btn btn-primary" id="account_button" role="button">Account <span id="account_badge" class="badge"></span></a>
 </div>
 
+<% if controller.controller_name.eql?("users") && controller.action_name.eql?("index") %>
+	<% if params[:id].to_i == session[:user_id].to_i then %>
+  		<div class="bt-group btn-group-justified" id="logout_panel">
+  			<a href="/users/edit/<%= params[:id] %>" class="btn btn-warning btn-block">Edit</a>
+  		</div>
+  	<% end %>
+<% end %>
+
+
 <%= yield %>
 
 </body>
