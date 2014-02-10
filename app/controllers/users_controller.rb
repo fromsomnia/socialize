@@ -11,4 +11,14 @@ class UsersController < ApplicationController
   def create
   	@new_user = User.new
   end
+
+  def save
+  	@user = User.new(params[:user])
+  	if @user.save
+		redirect_to "/users/index/#{@user.id}"
+	else
+		@new_user = User.new
+		render :action => "create"
+	end
+  end
 end
