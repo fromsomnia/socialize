@@ -29,7 +29,7 @@ class EventsController < ApplicationController
 
   def logout
   	reset_session
-  	redirect_to "login_screen"
+  	redirect_to "/events/login_screen"
 
   end
 
