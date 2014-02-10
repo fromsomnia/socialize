@@ -7,17 +7,4 @@ class UsersController < ApplicationController
   	end
   	@nav_bar = "All Users"
   end
-
-  def login
-
-  end
-
-  def logout
-
-  end
-
-  def login_screen
-
-  end
-
 end
