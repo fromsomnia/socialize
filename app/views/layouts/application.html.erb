@@ -31,7 +31,7 @@
 </div>
 
 <% if controller.controller_name.eql?("users") && controller.action_name.eql?("index") %>
-	<% if params[:id].to_i == session[:user_id].to_i then %>
+	<% if params[:id].to_i == session[:user_id].to_i && !session[:user_id].nil? then %>
 		<% at_account_page = true %>
   		<div class="bt-group btn-group-justified" id="logout_panel">
   			<a href="/users/edit/<%= params[:id] %>" class="btn btn-warning btn-block">Edit Account</a>
