@@ -45,8 +45,8 @@ margin: 0;
 	margin: 0 auto;
 }
 
-.submit-button-block {
-	max-width: 700px;
+#submit-button-block {
+	border-radius: 0;
 }
 
 #all-users-container {
@@ -67,10 +67,13 @@ margin: 0;
 
 #add-event-bar {
 	padding: 0;
+	margin-top: 0;
+	margin-bottom: 0;
 }
 
 .navbar-custom {
 	background-color: #5bc0de;
+	padding: 0;
 }
 
 #edit-filler {
