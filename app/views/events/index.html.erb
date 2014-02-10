@@ -3,40 +3,38 @@
 	<% for event in @events do %>
 		<% creator = User.find_by_id(event.user_id) %>
 
-		<div class="event center-block">
-			<h3>
-				<a href="/events/index/<%= event.user_id %>"><%= event.title %></a>
-			</h3>
-
-			<div class="container">
+			<div class="container event center-block">
+				<h3>
+					<a href="/events/index/<%= event.user_id %>"><%= event.title %></a>
+				</h3>
 				<img src="<%= creator.image_url %>" class="img-responsive img-rounded" alt="<%= creator.first_name %>">
-			<h4>By <%= creator.first_name + " " + creator.last_name %></h4>
+				<h4>By <%= creator.first_name + " " + creator.last_name %></h4>
 
-			<p><%= event.description %></p>
+				<p><%= event.description %></p>
 
-			<ul>
-				<li>Place: <%= event.place %></li>
-				<li>Date: <%= event.date %></li>
-				<li>Time: <%= event.time %></li>
-			</ul>
-			<div>
-				<h4>Also Going:</h4>
-				<hr>
-				<% for attendee in event.users do %>
-					<a href="/users/index/<%= attendee.id %>">
-						<div class="inline-icon-container">
-							<div class="inline-icon">
-									<img src ="<%= attendee.image_url %>" class="img-responsive img-rounded icon-image" alt="<%= attendee.first_name %>">
+				<ul>
+					<li>Place: <%= event.place %></li>
+					<li>Date: <%= event.date %></li>
+					<li>Time: <%= event.time %></li>
+				</ul>
+				<div>
+					<h4>Also Going:</h4>
+					<hr>
+					<% for attendee in event.users do %>
+						<a href="/users/index/<%= attendee.id %>">
+							<div class="inline-icon-container">
+								<div class="inline-icon">
+										<img src ="<%= attendee.image_url %>" class="img-responsive img-rounded icon-image" alt="<%= attendee.first_name %>">
+								</div>
+								<div class="icon-title">
+									<p><%= attendee.first_name %></p>
+								</div>
 							</div>
-							<div class="icon-title">
-								<p><%= attendee.first_name %></p>
-							</div>
-						</div>
-					</a>
-				<% end %>
-				<hr>
+						</a>
+					<% end %>
+					<hr>
+				</div>
 			</div>
-		</div>
 		<hr>
 
 	<% end %>

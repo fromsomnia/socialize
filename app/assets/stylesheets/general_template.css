@@ -25,3 +25,11 @@ textarea.about-field {
 -moz-border-radius: 0;
 border-radius: 0;
 }
+
+.event {
+	background-color: #eee;
+}
+
+.user {
+	background-color: #eee;
+}
