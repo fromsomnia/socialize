@@ -7,4 +7,8 @@ class UsersController < ApplicationController
   	end
   	@nav_bar = "All Users"
   end
+
+  def create
+  	@new_user = User.new
+  end
 end
