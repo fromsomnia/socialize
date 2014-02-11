@@ -30,7 +30,7 @@
 	<a href="/users/index/<%= home_account %>" class="btn btn-primary" id="account_button" role="button">Account <span id="account_badge" class="badge"></span></a>
 </div>
 
-<% if controller.controller_name.eql?("users") && controller.action_name.eql?("index") %>
+<% if controller.controller_name.eql?("users") && controller.action_name.eql?("index") then %>
 	<% if params[:id].to_i == session[:user_id].to_i && !session[:user_id].nil? then %>
 		<% at_account_page = true %>
   		<div class="bt-group btn-group-justified" id="logout_panel">
