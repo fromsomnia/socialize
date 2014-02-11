@@ -19,18 +19,22 @@
 	</div>
 <% end %>
 
-<div class="bt-group btn-group-justified" id="app_nav">
-	<a href="/events/index" class="btn btn-primary active" id="home_button" role="button">Home <span id="home_badge" class="badge"></span></a>
-	<a href="/users/index" class="btn btn-primary" id="friends_button" role="button">Friends <span id="friends_badge" class="badge"></span></a>
+<% if session[:logged_in] then %>
+	<div class="bt-group btn-group-justified" id="app_nav">
+		<a href="/events/index" class="btn btn-primary active" id="home_button" role="button">Home <span id="home_badge" class="badge"></span></a>
+		<a href="/users/index" class="btn btn-primary" id="friends_button" role="button">Friends <span id="friends_badge" class="badge"></span></a>
 
-	<% home_account = "" %>
-	<% if logged_in_user then %>
-		<% home_account = logged_in_user.id %>
-	<% end %>
+		<% home_account = "" %>
+		<% if logged_in_user then %>
+			<% home_account = logged_in_user.id %>
+		<% end %>
 
-	<a href="/users/index/<%= home_account %>" class="btn btn-primary" id="account_button" role="button">Account <span id="account_badge" class="badge"></span></a>
-</div>
-
+		<a href="/users/index/<%= home_account %>" class="btn btn-primary" id="account_button" role="button">Account <span id="account_badge" class="badge"></span></a>
+	</div>
+<% else %>
+	<div id="app-nav-placeholder">
+	</div>
+<% end %>
 <% if controller.controller_name.eql?("users") && controller.action_name.eql?("index") then %>
 	<% if params[:id].to_i == session[:user_id].to_i && !session[:user_id].nil? then %>
 		<% at_account_page = true %>
@@ -48,11 +52,16 @@
 
 <%= yield %>
 
-<nav class="navbar navbar-custom navbar-fixed-bottom" role="navigation">
-	<form class="navbar-form" role="add_event" id="add-event-bar" action="/events/create">
-		<button type="submit" class="btn btn-primary navbar-btn center-block" id="submit-button-block">Add Event</button>
-	</form>
-</div>
+<% if session[:logged_in] then %>
+	<nav class="navbar navbar-custom navbar-fixed-bottom" role="navigation">
+		<form class="navbar-form" role="add_event" id="add-event-bar" action="/events/create">
+			<button type="submit" class="btn btn-primary navbar-btn center-block" id="submit-button-block">Add Event</button>
+		</form>
+	</div>
+<% else %>
+	<div class="navbar-fixed-bottom" id="new-event-placeholder">
+	</div>
+<% end %>
 
 </body>
 </html>

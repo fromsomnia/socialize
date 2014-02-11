@@ -14,7 +14,11 @@ class UsersController < ApplicationController
   end
 
   def create
-  	@new_user = User.new
+  	if !session[:logged_in] then
+  		@new_user = User.new
+  	else
+  		redirect_to "/events/logout"
+  	end
   end
 
   def save

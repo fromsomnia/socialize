@@ -42,12 +42,17 @@ class EventsController < ApplicationController
   end
 
   def create
-  	@new_event = Event.new
+  	if session[:logged_in] then
+  		@new_event = Event.new
+  	else
+  		redirect_to "/events/index"
+  	end
   end
 
   def save
-  	@event = User.new(params[:user])
+  	@event = Event.new(params[:event])
   	if @event.save
+  		@new_event = Event.new
 		redirect_to "/events/index/#{@event.id}"
 	else
 		@new_event = Event.new

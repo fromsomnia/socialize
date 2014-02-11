@@ -36,7 +36,6 @@
 	    		<%= f.text_field(:address, class: "form-control", placeholder: "Address") %>
 	    	</div>
 	    </div>
-	    <% @new_event[:user_id] = session[:user_id] %>
 	  	<div class="form-group">
 	    	<div class="col-sm-offset-2 col-sm-10">
 	    		<%= f.submit "Create Event", class: "btn btn-primary btn-block", id: "create-event-button" %>
@@ -47,5 +46,6 @@
 				<%= link_to_function "Cancel", "history.back()", class: "btn btn-danger btn-block" %>
 	    	</div>
 	  	</div>
+	  	<%= f.text_field(:user_id, class: "form-control hidden", value:"#{session[:user_id]}") %>
 	<% end %>
 </div>
