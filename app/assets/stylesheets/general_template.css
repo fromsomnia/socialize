@@ -86,3 +86,13 @@ margin: 0;
 #edit-filler {
 	min-height: 35px;
 }
+
+.cancel-back-button {
+	
+}
+
+#create-event-form {
+	padding-top: 150px;
+	padding-bottom: 100px;
+	z-index: -100;
+}

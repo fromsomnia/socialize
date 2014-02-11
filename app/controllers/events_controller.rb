@@ -41,4 +41,18 @@ class EventsController < ApplicationController
   	reset_session
   end
 
+  def create
+  	@new_event = Event.new
+  end
+
+  def save
+  	@event = User.new(params[:user])
+  	if @event.save
+		redirect_to "/events/index/#{@event.id}"
+	else
+		@new_event = Event.new
+		redirect_to :action => "create"
+	end
+  end
+
 end

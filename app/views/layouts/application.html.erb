@@ -49,9 +49,9 @@
 <%= yield %>
 
 <nav class="navbar navbar-custom navbar-fixed-bottom" role="navigation">
-		<form class="navbar-form" role="add_event" id="add-event-bar">
-		  <button type="submit" class="btn btn-primary navbar-btn center-block" id="submit-button-block">Add Event</button>
-		</form>
+	<form class="navbar-form" role="add_event" id="add-event-bar" action="/events/create">
+		<button type="submit" class="btn btn-primary navbar-btn center-block" id="submit-button-block">Add Event</button>
+	</form>
 </div>
 
 </body>
