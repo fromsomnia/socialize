@@ -20,6 +20,8 @@ class UsersController < ApplicationController
   def save
   	@user = User.new(params[:user])
   	if @user.save
+  		session[:user_id] = user.id
+  		session[:logged_in] = true
 		redirect_to "/users/index/#{@user.id}"
 	else
 		@new_user = User.new
