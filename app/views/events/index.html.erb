@@ -2,13 +2,37 @@
 	
 	<% for event in @events do %>
 		<% creator = User.find_by_id(event.creator) %>
+			<% attending = "not-attending-event" %>
+			<% if User.find(session[:user_id]).events.exists?(event.id) then%>
+				<% attending = "attending-event" %>
+			<% end %>
 
-			<div class="container event center-block">
+			<div class="container event-object center-block <%= attending %>" id="event_#{event.id}">
 				<h3>
 					<a href="/events/index/<%= event.id %>"><%= event.title %></a>
 				</h3>
 				<img src="<%= creator.image_url %>" class="img-responsive img-rounded" alt="<%= creator.first_name %>">
 				<h4>By <a href="/users/index/<%= event.creator %>"><%= creator.first_name + " " + creator.last_name %></a></h4>
+
+				<form action="/events/toggle_attendance" class="form-horizontal event-form" role="form">
+					<% button_label = "" %>
+					<% button_class = "" %>
+					<% if event.users.exists?(session[:user_id]) then %>
+						<% button_label = "Leave Event" %>
+						<% button_class = "btn-default" %>
+					<% else %>
+						<% button_label = "Join Event" %>
+						<% button_class = "btn-success" %>
+					<% end %>
+					<div class="form-group">
+	    				<div class="col-sm-10 btn-group-justified">
+	    					<%= submit_tag "#{button_label}", class: "btn #{button_class} btn-block", id: "login_button" %>
+	    				<%= text_field_tag(:user_id, nil, class: "form-control hidden", value:"#{session[:user_id]}") %>
+	    				<%= text_field_tag(:event_id, nil, class: "form-control hidden", value:"#{event.id}") %>
+	    				<%= text_field_tag(:attendance, nil, class: "form-control hidden", value:"#{button_label}") %>
+	    				</div>
+	  				</div>
+	  			</form>
 
 				<p><%= event.description %></p>
 

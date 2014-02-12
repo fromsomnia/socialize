@@ -60,4 +60,20 @@ class EventsController < ApplicationController
 	end
   end
 
+  def toggle_attendance
+    user = User.find(params[:user_id])
+    event = Event.find(params[:event_id])
+    puts params
+    if params[:attendance].eql?("Leave Event") then
+      if user.events.exists?(event.id) then
+        user.events.delete(event)
+      end
+    else
+      if !user.events.exists?(event.id) then
+        user.events << event
+      end
+    end
+    render :nothing => true
+  end
+
 end
