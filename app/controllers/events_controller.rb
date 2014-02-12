@@ -18,7 +18,7 @@ class EventsController < ApplicationController
   			if user.password.eql?params[:password] then
   				session[:user_id] = user.id
   				session[:logged_in] = true
-  				@events = Event.all()
+  				@events = Event.all
   				redirect_to "/events/index"
   			else
   				render "/events/login_screen"

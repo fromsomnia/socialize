@@ -46,6 +46,6 @@
 				<%= link_to_function "Cancel", "history.back()", class: "btn btn-danger btn-block" %>
 	    	</div>
 	  	</div>
-	  	<%= f.text_field(:user_id, class: "form-control hidden", value:"#{session[:user_id]}") %>
+	  	<%= f.text_field(:creator, class: "form-control hidden", value:"#{session[:user_id]}") %>
 	<% end %>
 </div>

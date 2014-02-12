@@ -1,6 +1,4 @@
-
 <div class="container" id="all-users-container">
-	
 	<% for user in @users do %>
 		<% if user.id.to_i != session[:user_id].to_i || params[:id].to_i == user.id.to_i then %>
 			<div class="container user center-block">

@@ -7,7 +7,7 @@ class CreateEvents < ActiveRecord::Migration
     	t.column :time, :string
     	t.column :place, :string
     	t.column :address, :string
-    	t.column :user_id, :integer
+    	t.column :creator, :integer
     end
   end
 end

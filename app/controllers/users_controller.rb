@@ -21,6 +21,14 @@ class UsersController < ApplicationController
   	end
   end
 
+  def delete_account
+  end
+
+  def delete
+  	User.destroy(session[:user_id])
+  	redirect_to "/events/logout"
+  end
+
   def save
   	@user = User.new(params[:user])
   	if @user.save

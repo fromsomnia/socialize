@@ -7,7 +7,7 @@ class LoadEvents < ActiveRecord::Migration
   		:time => "09:30 am",
   		:place => "Nola",
   		:address => "",
-  		:user_id => 1)
+  		:creator => 1)
   	drinks.save(:validate => false)
 
   	run = Event.new(
@@ -17,7 +17,7 @@ class LoadEvents < ActiveRecord::Migration
   		:time => "08:00 am",
   		:place => "Lake Lag",
   		:address => "",
-  		:user_id => 1)
+  		:creator => 1)
   	run.save(:validate => false)
 
   	movie = Event.new(
@@ -27,7 +27,7 @@ class LoadEvents < ActiveRecord::Migration
   		:time => "09:30 pm",
   		:place => "Century 12 Redwood City",
   		:address => "",
-  		:user_id => 1)
+  		:creator => 1)
   	movie.save(:validate => false)
 
   	party = Event.new(
@@ -37,7 +37,7 @@ class LoadEvents < ActiveRecord::Migration
   		:time => "11:00 pm",
   		:place => "Mars",
   		:address => "",
-  		:user_id => 2)
+  		:creator => 2)
   	party.save(:validate => false)
 
   	pset = Event.new(
@@ -47,7 +47,7 @@ class LoadEvents < ActiveRecord::Migration
   		:time => "04:00 pm",
   		:place => "my room",
   		:address => "",
-  		:user_id => 2)
+  		:creator => 2)
   	pset.save(:validate => false)
 
   	picnic = Event.new(
@@ -57,7 +57,7 @@ class LoadEvents < ActiveRecord::Migration
   		:time => "02:30 pm",
   		:place => "grass patch outside Green",
   		:address => "",
-  		:user_id => 2)
+  		:creator => 2)
   	picnic.save(:validate => false)
 
   	bike_ride = Event.new(
@@ -67,7 +67,7 @@ class LoadEvents < ActiveRecord::Migration
   		:time => "05:00 pm",
   		:place => "Start at Roble",
   		:address => "374 Stata Teresa Ave, Stanford, CA",
-  		:user_id => 3)
+  		:creator => 3)
   	bike_ride.save(:validate => false)
 
   	set_up_back_end = Event.new(
@@ -77,7 +77,7 @@ class LoadEvents < ActiveRecord::Migration
   		:time => "02:00 am",
   		:place => "My Room",
   		:address => "",
-  		:user_id => 3)
+  		:creator => 3)
   	set_up_back_end.save(:validate => false)
 
   	eat = Event.new(
@@ -87,7 +87,7 @@ class LoadEvents < ActiveRecord::Migration
   		:time => "08:00 am",
   		:place => "Lag Dining",
   		:address => "",
-  		:user_id => 3)
+  		:creator => 3)
   	eat.save(:validate => false)
 
   end
