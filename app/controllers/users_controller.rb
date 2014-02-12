@@ -52,7 +52,7 @@ class UsersController < ApplicationController
   def update
   	@user = User.find(session[:user_id])
   	if @user.update_attributes(params[:user])
-		redirect_to "/users/index/#{@user.id}"
+		  redirect_to "/users/index/#{@user.id}"
 	else
 		redirect_to "/users/edit/#{@user.id}"
 	end	

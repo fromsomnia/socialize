@@ -6,6 +6,6 @@ class User < ActiveRecord::Base
 		end
 	}
 	
-  attr_accessible :first_name, :last_name, :image_url, :description, :password, :username
+  attr_accessible :first_name, :last_name, :image_url, :description, :username, :password
   has_and_belongs_to_many :events
 end

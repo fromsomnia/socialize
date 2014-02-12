@@ -20,16 +20,30 @@
 <% end %>
 
 <% if session[:logged_in] then %>
+
+	<% home_selected = "" %>
+	<% friends_selected ="" %>
+	<% account_selected ="" %>
+	<% if controller.controller_name.eql?("users") then %>
+		<% if params[:id].to_i == session[:user_id].to_i then %>
+			<% account_selected = "active" %>
+		<% else %>
+			<% friends_selected = "active" %>
+		<% end %>
+	<% else %>
+		<% home_selected = "active" %>
+	<% end %>
+
 	<div class="bt-group btn-group-justified" id="app_nav">
-		<a href="/events/index" class="btn btn-primary active" id="home_button" role="button">Home <span id="home_badge" class="badge"></span></a>
-		<a href="/users/index" class="btn btn-primary" id="friends_button" role="button">Friends <span id="friends_badge" class="badge"></span></a>
+		<a href="/events/index" class="btn btn-primary <%= home_selected %>" id="home_button" role="button">Home <span id="home_badge" class="badge"></span></a>
+		<a href="/users/index" class="btn btn-primary <%= friends_selected %>" id="friends_button" role="button">Friends <span id="friends_badge" class="badge"></span></a>
 
 		<% home_account = "" %>
 		<% if logged_in_user then %>
 			<% home_account = logged_in_user.id %>
 		<% end %>
 
-		<a href="/users/index/<%= home_account %>" class="btn btn-primary" id="account_button" role="button">Account <span id="account_badge" class="badge"></span></a>
+		<a href="/users/index/<%= home_account %>" class="btn btn-primary <%= account_selected %>" id="account_button" role="button">Account <span id="account_badge" class="badge"></span></a>
 	</div>
 <% else %>
 	<div id="app-nav-placeholder">

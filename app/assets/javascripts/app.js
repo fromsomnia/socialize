@@ -3,7 +3,26 @@
 // Call this function when the page loads (the "ready" event)
 $(document).ready(function() {
 	initializePage();
+	initializeHomeButtons();
 })
+
+/*function initializeHomeButtons(){
+	$("#acount_button").click(function(){
+		$(this).addClass("active");
+		$("#home_button").removeClass("active");
+		$("#friends_button").removeClass("active");
+	});
+	$("#home_button").click(function(){
+		$(this).addClass("active");
+		$("#account_button").removeClass("active");
+		$("#friends_button").removeClass("active");
+	});
+	$("#friends_button").click(function(){
+		$(this).addClass("active");
+		$("#account_button").removeClass("active");
+		$("#home_button").removeClass("active");
+	});
+}*/
 
 /*
  * Function that is called when the document is ready.

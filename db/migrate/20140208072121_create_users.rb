@@ -5,6 +5,8 @@ class CreateUsers < ActiveRecord::Migration
     	t.column :last_name, :string
       	t.column :image_url, :string
       	t.column :description, :string
+      	t.column :username, :string
+      	t.column :password, :string
     end
   end
 end
