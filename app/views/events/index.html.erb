@@ -7,7 +7,7 @@
 				<% attending = "attending-event" %>
 			<% end %>
 
-			<div class="container event-object center-block <%= attending %>" id="event_#{event.id}">
+			<div class="container event-object center-block <%= attending %>" id="<%= event.id %>">
 				<h3>
 					<a href="/events/index/<%= event.id %>"><%= event.title %></a>
 				</h3>
@@ -29,7 +29,6 @@
 	    					<%= submit_tag "#{button_label}", class: "btn #{button_class} btn-block", id: "login_button" %>
 	    				<%= text_field_tag(:user_id, nil, class: "form-control hidden", value:"#{session[:user_id]}") %>
 	    				<%= text_field_tag(:event_id, nil, class: "form-control hidden", value:"#{event.id}") %>
-	    				<%= text_field_tag(:attendance, nil, class: "form-control hidden", value:"#{button_label}") %>
 	    				</div>
 	  				</div>
 	  			</form>
@@ -41,22 +40,8 @@
 					<li>Date: <%= event.date %></li>
 					<li>Time: <%= event.time %></li>
 				</ul>
-				<div>
-					<h4>Also Going:</h4>
-					<hr>
-					<% for attendee in event.users do %>
-						<a href="/users/index/<%= attendee.id %>">
-							<div class="inline-icon-container">
-								<div class="inline-icon">
-										<img src ="<%= attendee.image_url %>" class="img-responsive img-rounded icon-image" alt="<%= attendee.first_name %>">
-								</div>
-								<div class="icon-title">
-									<p><%= attendee.first_name %></p>
-								</div>
-							</div>
-						</a>
-					<% end %>
-					<hr>
+				<div class="attendees_section">	
+					<%= render partial: "attendees", locals: { event: event } %>
 				</div>
 			</div>
 			<hr>

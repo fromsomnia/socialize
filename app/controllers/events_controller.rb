@@ -52,26 +52,31 @@ class EventsController < ApplicationController
   def save
   	@event = Event.new(params[:event])
   	if @event.save
+      User.find(session[:user_id]).events << @event
   		@new_event = Event.new
 		redirect_to "/events/index/#{@event.id}"
-	else
-		@new_event = Event.new
-		redirect_to :action => "create"
-	end
+    else
+		  @new_event = Event.new
+		  redirect_to :action => "create"
+    end
+  end
+
+  def update_attendees
+    event = Event.find(params[:event_id])
+    render partial: "attendees", locals: { event: event }
   end
 
   def toggle_attendance
     user = User.find(params[:user_id])
+    user.reload
     event = Event.find(params[:event_id])
     puts params
-    if params[:attendance].eql?("Leave Event") then
-      if user.events.exists?(event.id) then
+    if user.events.exists?(event.id) then
+        puts "LEFT EVENT ++++++++++++++++++++++++++++++++++++++++++++++++"
         user.events.delete(event)
-      end
     else
-      if !user.events.exists?(event.id) then
         user.events << event
-      end
+        puts "JOINED EVENT ++++++++++++++++++++++++++++++++++++++++++++++"
     end
     render :nothing => true
   end

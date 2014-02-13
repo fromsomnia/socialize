@@ -2,8 +2,10 @@
 
 // Call this function when the page loads (the "ready" event)
 $(document).ready(function() {
+	$.ajaxSetup({
+    	cache: false
+	});
 	initializePage();
-	initializeHomeButtons();
 })
 
 /*function initializeHomeButtons(){
@@ -30,8 +32,23 @@ $(document).ready(function() {
 function initializePage() {
 	console.log("Jascript Added!");
 	$("form.event-form").each(function(index){
-		console.log("added ajax to form");
-		$(this).ajaxForm();
+		var form_obj = $(this);
+		$(this).ajaxForm(function(){
+			var enclosing_event = form_obj.closest(".event-object");
+			var event_id = enclosing_event.attr("id");
+			var data = "event_id=" + event_id;
+			$.ajax({
+				url: "/events/update_attendees",
+				type: "GET",
+				data: data,
+				dataType: "html",
+				context: enclosing_event,
+				success: function (response) {
+					$(this).find(".attendees_section").html(response);
+				}
+			});
+			
+		});
 	});
 
 	$("div.event-object").each(function(index){
@@ -51,6 +68,7 @@ function initializePage() {
 		});
 	});
 }
+
 
 //function friendClick(e){
 //	e.preventDefault();
