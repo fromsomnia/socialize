@@ -1,15 +1,8 @@
 <h4>Also Going:</h4>
 <hr>
+<div class="attendee-section-<%= event.id %>">
 <% for attendee in event.users do %>
-	<a href="/users/index/<%= attendee.id %>">
-		<div class="inline-icon-container">
-			<div class="inline-icon">
-				<img src ="<%= attendee.image_url %>" class="img-responsive img-rounded icon-image" alt="<%= attendee.first_name %>">
-			</div>
-			<div class="icon-title">
-				<p><%= attendee.first_name %></p>
-			</div>
-		</div>
-	</a>
+	<%= render partial: "user_icon", locals: { attendee: attendee } %>
 <% end %>
+</div>
 <hr>

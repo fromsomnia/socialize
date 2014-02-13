@@ -63,7 +63,12 @@ class EventsController < ApplicationController
 
   def update_attendees
     event = Event.find(params[:event_id])
-    render partial: "attendees", locals: { event: event }
+    attendee = User.find(session[:user_id])
+    if attendee.events.exists?(event.id) then
+      render partial: "user_icon", locals: { attendee: attendee }
+    else
+      render :nothing => true
+    end
   end
 
   def toggle_attendance
@@ -72,11 +77,9 @@ class EventsController < ApplicationController
     event = Event.find(params[:event_id])
     puts params
     if user.events.exists?(event.id) then
-        puts "LEFT EVENT ++++++++++++++++++++++++++++++++++++++++++++++++"
         user.events.delete(event)
     else
         user.events << event
-        puts "JOINED EVENT ++++++++++++++++++++++++++++++++++++++++++++++"
     end
     render :nothing => true
   end

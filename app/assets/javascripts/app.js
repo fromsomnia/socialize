@@ -41,10 +41,20 @@ function initializePage() {
 				url: "/events/update_attendees",
 				type: "GET",
 				data: data,
-				dataType: "html",
+				dataType: "text",
 				context: enclosing_event,
 				success: function (response) {
-					$(this).find(".attendees_section").html(response);
+					var event_val = $(this).find(".event_id").attr("value");
+					var id_val = $(this).find(".user_id").attr("value");
+					var icon_id = "#icon_id" + id_val;
+					if(response.length == 1){
+						$(this).find(icon_id).fadeOut(1000).queue(function() { 
+    						$(this).dequeue();
+       					 	$(this).remove();
+    					});
+					}else{
+						$(response).appendTo(".attendee-section-" + event_val).hide().fadeIn(2000);
+					}
 				}
 			});
 			
@@ -55,10 +65,15 @@ function initializePage() {
 		var button = $(this).find(".btn");
 		button.click(function(){
 			var enclosing_event = $(this).closest(".event-object");
-			enclosing_event.toggleClass("attending-event");
-			enclosing_event.toggleClass("not-attending-event");
+
+			if(enclosing_event.hasClass("attending-event")){
+				enclosing_event.switchClass("attending-event", "not-attending-event", 1000);
+			}else{
+				enclosing_event.switchClass("not-attending-event", "attending-event", 1000);
+			}
 			$(this).toggleClass("btn-success");
-			$(this).toggleClass("btn-default")
+       		$(this).toggleClass("btn-default");
+
 			var current_text = $(this).attr("value")
 			if(current_text == "Leave Event"){
 				$(this).attr("value","Join Event");
