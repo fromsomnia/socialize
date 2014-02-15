@@ -61,6 +61,31 @@ class EventsController < ApplicationController
     end
   end
 
+  def edit
+    if params[:id] then
+      @event = Event.find(params[:id])
+      if @event.creator.to_i == session[:user_id].to_i then
+      else
+        redirect_to "/events/index"
+      end
+    else
+      redirect_to "/events/index"
+    end
+  end
+
+  def update
+    if params[:id] then
+      @event = Event.find(params[:id])
+      if @event.update_attributes(params[:event]) then
+        redirect_to "/events/index/#{params[:id]}"
+      else
+        redirect_to "/events/edit/#{@event.id}"
+      end
+    else
+      redirect_to "/events/index"
+    end
+  end
+
   def update_attendees
     event = Event.find(params[:event_id])
     attendee = User.find(session[:user_id])

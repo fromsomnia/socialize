@@ -8,6 +8,13 @@
 			<% end %>
 
 			<div class="container event-object center-block <%= attending %>" id="<%= event.id %>">
+				<% if event.creator.to_i == session[:user_id].to_i then %>
+					<form action="/events/edit/<%= event.id %>">
+						<button type="submit" class="btn btn-default btn-xs edit-button">
+							<span class="glyphicon glyphicon-pencil"></span> Edit
+						</button>
+					</form>
+				<% end %>
 				<h3>
 					<a href="/events/index/<%= event.id %>"><%= event.title %></a>
 				</h3>

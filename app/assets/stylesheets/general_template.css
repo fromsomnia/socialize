@@ -97,6 +97,12 @@ margin: 0;
 	z-index: -100;
 }
 
+#edit-event-form {
+	padding-top: 150px;
+	padding-bottom: 50px;
+	z-index: -100;
+}
+
 #app-nav-placeholder {
 	height: 35px;
 	background-color: #428bca;
@@ -122,4 +128,14 @@ margin: 0;
 
 .attending-event {
 	background-color: #95DB8F;
+}
+
+div.event-object {
+	position: relative;
+}
+
+button.edit-button {
+	position: absolute;
+	right: 10px;
+	top: 10px;
 }
