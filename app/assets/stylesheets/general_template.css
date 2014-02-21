@@ -63,7 +63,7 @@ margin: 0;
 #create-user-form {
 	padding-top: 150px;
 	padding-bottom: 50px;
-	z-index: -100;
+	z-index: -100
 }
 
 #edit-user-form {
@@ -155,5 +155,5 @@ hr.divide-user-tabs {
 }
 
 li.no-tab-spacing {
-	margin-top: 0;
+	margin-top: 0px;
 }
