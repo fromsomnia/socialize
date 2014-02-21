@@ -33,8 +33,15 @@ class UsersController < ApplicationController
 
   def request_friend
     @friendship = Friendship.new(params[:friendship])
+    inv_friendship = Friendship.find(:all, :conditions => { :user_id => @friendship.friend.user_id, :friend_id => Friend.find_by_user_id(@friendship.user.id).id })[0]
     @friendship.accepted = false
-    if @friendship.save then
+    if inv_friendship != nil then
+      @friendship.accepted = true
+      inv_friendship.accepted = true
+      @friendship.save
+      inv_friendship.save
+      redirect_to "/users/index"
+    elsif @friendship.save then
       redirect_to "/users/index"
     else
       redirect_to "/users/index"
