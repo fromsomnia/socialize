@@ -31,6 +31,9 @@ class UsersController < ApplicationController
 
   def save
   	@user = User.new(params[:user])
+    friend = Friend.new
+    friend.user_id = @user.id
+    friend.save
   	if @user.save
   		session[:user_id] = @user.id
   		session[:logged_in] = true
@@ -57,4 +60,16 @@ class UsersController < ApplicationController
 		redirect_to "/users/edit/#{@user.id}"
 	end	
   end
+
+  def search
+    query = params[:query]
+    @results = nil
+    User.all do |user|
+      if (user.first_name + " " + user.last_name).include?(query) || user.username.include?(query) then
+        @results << user
+      end
+    end
+    render json: @results
+  end
+
 end

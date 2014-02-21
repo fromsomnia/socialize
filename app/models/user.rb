@@ -8,4 +8,6 @@ class User < ActiveRecord::Base
 	
   attr_accessible :first_name, :last_name, :image_url, :description, :username, :password
   has_and_belongs_to_many :events
+  has_many :friendships
+  has_many :friends, through: :friendships
 end

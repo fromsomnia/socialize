@@ -18,7 +18,7 @@
 				<h3>
 					<a href="/events/index/<%= event.id %>"><%= event.title %></a>
 				</h3>
-				<img src="<%= creator.image_url %>" class="img-responsive img-rounded" alt="<%= creator.first_name %>">
+				<img src="<%= creator.image_url %>" class="img-responsive img-rounded center-block" alt="<%= creator.first_name %>">
 				<h4>By <a href="/users/index/<%= event.creator %>"><%= creator.first_name + " " + creator.last_name %></a></h4>
 
 				<form action="/events/toggle_attendance" class="form-horizontal event-form" role="form">

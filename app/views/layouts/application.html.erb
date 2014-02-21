@@ -49,17 +49,31 @@
 	<div id="app-nav-placeholder">
 	</div>
 <% end %>
-<% if controller.controller_name.eql?("users") && controller.action_name.eql?("index") then %>
-	<% if params[:id].to_i == session[:user_id].to_i && !session[:user_id].nil? then %>
-		<% at_account_page = true %>
-  		<div class="bt-group btn-group-justified" id="logout_panel">
-  			<a href="/users/edit/<%= params[:id] %>" class="btn btn-warning btn-block">Edit Account</a>
-  		</div>
-  	<% end %>
+<% if session[:logged_in] then %>
+	<% if controller.controller_name.eql?("users") && controller.action_name.eql?("index") then %>
+		<% if params[:id].to_i == session[:user_id].to_i && !session[:user_id].nil? then %>
+			<% at_account_page = true %>
+	  		<div class="bt-group btn-group-justified" id="edit-panel">
+	  			<a href="/users/edit/<%= params[:id] %>" class="btn btn-warning btn-block">Edit Account</a>
+	  		</div>
+	  	<% elsif params[:id].nil? %>
+	  		<% at_friends_page = true %>
+
+	  		<div> <!-- class="col-lg-6" -->
+				<div class="input-group" id="add-friends-panel">
+      				<input type="text" class="form-control" placeholder="Search for friends">
+      				<span class="input-group-btn">
+        				<a href="/users/edit/<%= params[:id] %>" class="btn btn-warning">Search</a>
+      				</span>
+    			</div><!-- /input-group -->
+			</div><!-- /.col-lg-6 -->
+
+	  	<% end %>
+	<% end %>
 <% end %>
 </div>
 
-<% if at_account_page then %>
+<% if at_account_page || at_friends_page then %>
 	<div class="container" id="edit-filler"></div>
 <% end %>
 

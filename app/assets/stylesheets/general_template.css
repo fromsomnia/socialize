@@ -139,3 +139,21 @@ button.edit-button {
 	right: 10px;
 	top: 10px;
 }
+
+img.user-tab-icon {
+	max-height: 100px;
+	max-width: 100px;
+}
+
+div.user-tab-centered {
+	margin-top: 30px;
+}
+
+hr.divide-user-tabs {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+li.no-tab-spacing {
+	margin-top: 0;
+}
