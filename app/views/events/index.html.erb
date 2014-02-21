@@ -1,5 +1,7 @@
 <div class="container" id="all-users-container">
-	
-	<%= render partial: "event_full", locals: { events: @events } %>
-
+	<% if params[:id].nil? then %>
+		<%= render partial: "event_tab", locals: { events: @events } %>
+	<% else %>
+		<%= render partial: "event_full", locals: { events: @events } %>
+	<% end %>
 </div>

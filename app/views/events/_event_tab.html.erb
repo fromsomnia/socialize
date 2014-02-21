@@ -13,11 +13,23 @@
 				</button>
 			</form>
 		<% end %>
-		<h3>
-			<a href="/events/index/<%= event.id %>"><%= event.title %></a>
-		</h3>
-		<img src="<%= creator.image_url %>" class="img-responsive img-rounded center-block" alt="<%= creator.first_name %>">
-		<h4>By <a href="/users/index/<%= event.creator %>"><%= creator.first_name + " " + creator.last_name %></a></h4>
+		<ul class="media-list event-media-list-spacing">
+			<li class="media">
+				<a class="pull-left">
+					<img src="<%= creator.image_url %>" class="media-object img-responsive img-circle event-tab-icon" alt="<%= creator.first_name %>">
+				</a>
+				<div class="media-body">
+					<h4 class="media-heading">
+						<a href="/events/index/<%= event.id %>"><%= event.title %></a>
+					</h4>
+					<p><%= event.description %></p>
+					<p>By <a href="/users/index/<%= event.creator %>"><%= creator.first_name + " " + creator.last_name %></a></p>
+				</div>
+			</li>
+			<a class="pull-right">
+				<p>Time: <%= event.time %></p>
+			</a>
+		</ul>
 
 		<form action="/events/toggle_attendance" class="form-horizontal event-form" role="form">
 			<% button_label = "" %>
@@ -32,22 +44,11 @@
 			<div class="form-group">
 				<div class="col-sm-10 btn-group-justified">
 					<%= submit_tag "#{button_label}", class: "btn #{button_class} btn-block", id: "login_button" %>
-				<%= text_field_tag(:user_id, nil, class: "form-control hidden user_id", value:"#{session[:user_id]}") %>
-				<%= text_field_tag(:event_id, nil, class: "form-control hidden event_id", value:"#{event.id}") %>
+					<%= text_field_tag(:user_id, nil, class: "form-control hidden user_id", value:"#{session[:user_id]}") %>
+					<%= text_field_tag(:event_id, nil, class: "form-control hidden event_id", value:"#{event.id}") %>
 				</div>
-				</div>
-			</form>
-
-		<p><%= event.description %></p>
-
-		<ul>
-			<li>Place: <%= event.place %></li>
-			<li>Date: <%= event.date %></li>
-			<li>Time: <%= event.time %></li>
-		</ul>
-		<div>	
-			<%= render partial: "attendees", locals: { event: event } %>
-		</div>
+			</div>
+		</form>
 	</div>
 	<hr>
 
