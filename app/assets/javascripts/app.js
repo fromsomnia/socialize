@@ -61,6 +61,28 @@ function initializePage() {
 		});
 	});
 
+	$("div.event-object").each(function(index){
+		var button = $(this).find(".btn");
+		button.click(function(){
+			var enclosing_event = $(this).closest(".event-object");
+
+			if(enclosing_event.hasClass("attending-event")){
+				enclosing_event.switchClass("attending-event", "not-attending-event", 1000);
+			}else{
+				enclosing_event.switchClass("not-attending-event", "attending-event", 1000);
+			}
+			$(this).toggleClass("btn-success");
+       		$(this).toggleClass("btn-default");
+
+			var current_text = $(this).attr("value")
+			if(current_text == "Leave Event"){
+				$(this).attr("value","Join Event");
+			}else{
+				$(this).attr("value", "Leave Event");
+			}
+		});
+	});
+
 	$( "#search-friends-input" ).autocomplete({
 		source: function( request, response ) {
 			$.ajax({
@@ -117,29 +139,6 @@ function initializePage() {
 
             .appendTo( ul );
     };
-
-
-	$("div.event-object").each(function(index){
-		var button = $(this).find(".btn");
-		button.click(function(){
-			var enclosing_event = $(this).closest(".event-object");
-
-			if(enclosing_event.hasClass("attending-event")){
-				enclosing_event.switchClass("attending-event", "not-attending-event", 1000);
-			}else{
-				enclosing_event.switchClass("not-attending-event", "attending-event", 1000);
-			}
-			$(this).toggleClass("btn-success");
-       		$(this).toggleClass("btn-default");
-
-			var current_text = $(this).attr("value")
-			if(current_text == "Leave Event"){
-				$(this).attr("value","Join Event");
-			}else{
-				$(this).attr("value", "Leave Event");
-			}
-		});
-	});
 }
 
 
