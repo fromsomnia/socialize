@@ -1,7 +1,31 @@
 <div class="container" id="all-users-container">
-	<% if params[:id].nil? then%>
+	<% if params[:id].nil? then %>
+		<% current_friend_id = Friend.find_by_user_id(session[:user_id]) %>
+		<% requests = Friendship.find(:all, :conditions => { :friend_id => current_friend_id, :accepted => false}) %>
+		<% @req_users = [] %>
+		<% requests.each do |request| %>
+			<% @req_users << request.user %>
+		<% end %>
+		<%= render partial: "user_request_tab", locals: { users: @req_users } %>
 		<%= render partial: "user_tab", locals: { users: @users } %>
 	<% else %>
-		<%= render partial: "user_full", locals: { users: @users } %>
+		<% friendship = Friendship.find(:all, :conditions => { :user_id => session[:user_id], :friend_id => Friend.find_by_user_id(params[:id]).id }) %>
+		<% requested = false %>
+		<% home_account = false %>
+		<% if friendship.length > 0 then %>
+			<% requested = true %>
+		<% end %>
+		<% if session[:user_id].to_i == params[:id].to_i then %>
+			<% home_account = true %>
+			<%= render partial: "user_full", locals: { users: @users, home_account: home_account } %>
+		<% elsif requested then %>
+			<% if friendship[0].accepted then %>
+				<%= render partial: "user_full", locals: { users: @users, home_account: home_account } %>
+			<% else %>
+				<%= render partial: "user_min", locals: { users: @users, requested: requested } %>
+			<% end %>
+		<% else %>
+			<%= render partial: "user_min", locals: { users: @users, requested: requested } %>
+		<% end %>
 	<% end %>
 </div>

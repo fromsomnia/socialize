@@ -1,0 +1,33 @@
+<% if users.length > 0 then %>
+	<hr>
+	<h3>Friend Requests</h3>
+	<hr>
+	<ul class="media-list">
+	<% for user in users do %>
+		<li class="media no-tab-spacing request-tab">
+			<a class="pull-left" href="/users/index/<%= user.id %>">
+					<img class="media-object img-responsive img-circle user-tab-icon" src="<%= user.image_url %>" alt="<%= user.first_name %>">
+			</a>
+			<div class="media-body user-tab-centered">
+				<h4 class="media-heading">
+					<a href="/users/index/<%= user.id %>"><%= user.first_name + " " + user.last_name %></a>
+				</h4>
+				<p><%= user.username %></p>
+			</div>
+			<span class="pull-right">
+				<form action="/users/accept_request" class="form-horizontal form-inline request-form" role="form" id="accept_request_form">
+					<input type="text" class="form-control hidden" name="user_id" id="accept-request-input" value="<%= user.id %>">
+					<button class="btn btn-success request-button" role="button" type="submit"> Add </button>
+				</form>
+				<form action="/users/ignore_request" class="form-horizontal form-inline request-form" role="form" id="accept_request_form">
+					<input type="text" class="form-control hidden" name="user_id" id="deny-request-input" value="<%= user.id %>">
+					<button class="btn btn-default request-button" role="button" type="submit"> Ignore </button>
+				</form>
+			</span>
+		</li>
+		<hr class="divide-user-tabs">
+	<% end %>
+	</ul>
+	<h3>Friends</h3>
+	<hr>
+<% end %>

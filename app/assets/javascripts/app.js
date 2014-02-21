@@ -61,6 +61,64 @@ function initializePage() {
 		});
 	});
 
+	$( "#search-friends-input" ).autocomplete({
+		source: function( request, response ) {
+			$.ajax({
+          		url: "/users/search",
+          		dataType: "json",
+          		data: {
+            		query: request.term,
+            		maxRows: "10"
+         		},
+       			 success: function( data ) {
+       			 	console.log(data);
+            		response( $.map( data, function( user ) {
+            			return {
+            				label: user.first_name + " " + user.last_name,
+            				value: user.username,
+            				id: user.id,
+            				image_url: user.image_url,
+            				username: user.username
+              			}
+            		}));
+        		}
+    		});
+      	},
+      	minLength: 1,
+      	select: function( event, ui ) {
+        	log( ui.item ?
+          		"Selected: " + ui.item.label :
+          		"Nothing selected, input was " + this.value
+          	);
+      	},
+      	open: function() {
+        	
+      	},
+      	close: function() {
+        	
+      	}
+    })
+	.data( "ui-autocomplete" )._renderItem = function( ul, user ) {
+		ul.addClass("media-list");
+        return $( "<li class=\"media lined-bottom\"></li>" )
+            .data( "user.autocomplete", user)
+            .append(
+            	"<a href=\"/users/index/" + user.id + "\">" +
+            	"<span class=\"pull-left\">" + 
+					"<img class=\"media-object img-responsive img-circle user-search-icon\" src=\"" + user.image_url + "\">" +
+				"</span>" +
+					"<div class=\"media-body centered-search-tab-body\">" +
+						"<h5 class=\"media-heading\">" +
+							user.label +
+						"</h5>" +
+						"<h6>" + user.username + "</h6>" +
+					"</div>" +
+            	 "</a>")
+
+            .appendTo( ul );
+    };
+
+
 	$("div.event-object").each(function(index){
 		var button = $(this).find(".btn");
 		button.click(function(){
