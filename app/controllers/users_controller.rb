@@ -22,7 +22,14 @@ class UsersController < ApplicationController
 
   def create
   	if !session[:logged_in] then
-  		@new_user = User.new
+  		@new_user = User.new(params[:new_user])
+=begin
+		if @new_user.save
+			redirect_to new_user_path, :notice => "Account created"
+		else
+			render "create"
+		end
+=end
   	else
   		redirect_to "/events/logout"
   	end
@@ -80,17 +87,18 @@ class UsersController < ApplicationController
   end
 
   def save
-  	@user = User.new(params[:user])
-  	if @user.save then
-  		session[:user_id] = @user.id
+  	@new_user = User.new(params[:user])
+  	if @new_user.save then
+  		session[:user_id] = @new_user.id
   		session[:logged_in] = true
       friend = Friend.new
-      friend.user_id = @user.id
+      friend.user_id = @new_user.id
       friend.save
-		redirect_to "/users/index/#{@user.id}"
+		redirect_to "/users/index/#{@new_user.id}"
 	else
-		@new_user = User.new
-		render :action => "create"
+		#@new_user = User.new
+		render "create"
+		#render 'new'
 	end
   end
 

@@ -1,8 +1,5 @@
 class User < ActiveRecord::Base
 
-validates :last_name, :first_name, :username, :password, :presence => true
-validates :username, :uniqueness => { :message => "already in use" }
-
 	before_destroy { |user|
 		Event.destroy_all("creator = #{user.id}")
 		for event in user.events
@@ -13,5 +10,8 @@ validates :username, :uniqueness => { :message => "already in use" }
   has_and_belongs_to_many :events
   has_many :friendships
   has_many :friends, through: :friendships
+
+validates :last_name, :first_name, :username, :password, :presence => true
+validates :username, :uniqueness => { :message => "already in use" }
 
 end
