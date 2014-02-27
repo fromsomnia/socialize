@@ -1,10 +1,9 @@
 <div class="container" id="create-user-form">
 	<% if @new_user.errors.any? %>
-		<h2>Errors</h2>
-		<h3><%= pluralize(@new_user.errors.count, "error") %> prohibited this record from being saved:</h3>
+		<h3 class="error-message">Errors: <%= pluralize(@new_user.errors.count, "error") %> prohibited this record from being saved</h3>
 		<ul>
 			<% @new_user.errors.full_messages.each do |msg| %>
-				<li><%= msg %></li>
+				<li class="error-message"><%= msg %></li>
 			<% end %>
 		</ul>
 	<% end %>
