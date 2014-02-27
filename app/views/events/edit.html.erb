@@ -1,4 +1,12 @@
 <div class="container" id="edit-event-form">
+	<% if @event.errors.any? %>
+		<h3 class="error-message">Errors: <%= pluralize(@event.errors.count, "error") %> prohibited this record from being saved</h3>
+		<ul>
+			<% @event.errors.full_messages.each do |msg| %>
+				<li class="error-message"><%= msg %></li>
+			<% end %>
+		</ul>
+	<% end %>
 	<%= form_for @event, url: {action: "update/#{@event.id}"}, html: {class: "form-horizontal", role: "form"} do |f|%>
 		<div class="form-group">
 	  		<%= label_tag(:title, "Title", class: "col-sm-2 control-label" ) %>

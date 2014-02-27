@@ -56,14 +56,15 @@ class EventsController < ApplicationController
   end
 
   def save
-  	@event = Event.new(params[:event])
-  	if @event.save
-      User.find(session[:user_id]).events << @event
-  		@new_event = Event.new
-		redirect_to "/events/index/#{@event.id}"
+  	@new_event = Event.new(params[:event])
+  	if @new_event.save
+      User.find(session[:user_id]).events << @new_event
+  		#@new_event = Event.new
+		redirect_to "/events/index/#{@new_event.id}"
     else
-		  @new_event = Event.new
-		  redirect_to :action => "create"
+		 #@new_event = Event.new
+		 #redirect_to :action => "create"
+		render "create"
     end
   end
 
@@ -85,7 +86,8 @@ class EventsController < ApplicationController
       if @event.update_attributes(params[:event]) then
         redirect_to "/events/index/#{params[:id]}"
       else
-        redirect_to "/events/edit/#{@event.id}"
+        render "edit"
+	#redirect_to "/events/edit/#{@event.id}"
       end
     else
       redirect_to "/events/index"
