@@ -6,6 +6,21 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+      <script>
+    $(function(){
+        $.datepicker.setDefaults(
+          $.extend($.datepicker.regional[''])
+        );
+        $('#datepicker').datepicker({
+          beforeShow: function(input) {
+            $(input).css('background-color','#ff0');
+          },
+          onSelect: function(dateText, obj) {
+            $(this).css('background-color','');
+          }
+        });
+    });
+    </script>
 </head>
 <body>
 
@@ -76,7 +91,6 @@
 <% if at_account_page || at_friends_page then %>
 	<div class="container" id="edit-filler"></div>
 <% end %>
-
 
 <%= yield %>
 
