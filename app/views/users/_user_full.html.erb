@@ -6,7 +6,13 @@
 		<img src="<%= user.image_url %>" class="img-responsive img-rounded" alt="<%= user.first_name %>">
 		<p><%= user.description %></p>
 		<hr>
-		<h3><a href ="/users/index/<%= user.id %>"><%= user.first_name %></a> is attending:</h3>
+		<% @user_name = user.first_name %>
+		<% @verb = "is" %>
+		<% if user.id.to_i == session[:user_id].to_i then %>
+			<% @user_name = "You" %>
+			<% @verb = "are" %>
+		<% end %>
+		<h3><a href ="/users/index/<%= user.id %>"><%= @user_name %></a> <%= @verb %> attending:</h3>
 
 		<% @events = user.events.sort{|a, b| Event.chronological_sort(a, b)} %>
 		<div class="container">
