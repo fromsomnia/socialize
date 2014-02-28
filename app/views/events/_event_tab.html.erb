@@ -26,9 +26,9 @@
 					<p>By <a href="/users/index/<%= event.creator %>"><%= creator.first_name + " " + creator.last_name %></a></p>
 				</div>
 			</li>
-			<a class="pull-right">
-				<p>Time: <%= event.time %></p>
-			</a>
+			<span class="pull-right">
+				<p>DATE: <%= event.date %> TIME: <%= event.time %></p>
+			</span>
 		</ul>
 
 		<form action="/events/toggle_attendance" class="form-horizontal event-form" role="form">
