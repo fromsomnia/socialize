@@ -7,10 +7,23 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
       <script>
-    $(function(){
+      $(function(){
+      	$("#datepicker").prop('readonly', true);
+      	$("#timepicker").prop('readonly', true);
+      	$('#datepicker').datetimepicker({
+      		altField: "#timepicker",
+			timeFormat: "h:mm tt",
+			minDate: 0,
+			stepHour: 1,
+			stepMinute: 1
+		});
+      });
+    /*$(function(){
         $.datepicker.setDefaults(
           $.extend($.datepicker.regional[''])
         );
+        $.datepicker.formatTime("hh:mm tt", null, "");
+        $("#datepicker").prop('readonly', true);
         $('#datepicker').datepicker({
           beforeShow: function(input) {
             $(input).css('background-color','#ff0');
@@ -19,7 +32,7 @@
             $(this).css('background-color','');
           }
         });
-    });
+    });*/
     </script>
 </head>
 <body>
