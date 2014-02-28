@@ -9,6 +9,10 @@ class EventsController < ApplicationController
           @events << event
         end
       end
+      me = User.find(session[user_id])
+      me.events.each do |event|
+        @events << event
+      end
 	  	if params[:id].present? then
 	  		@events = Event.find(:all, :conditions => "id = #{params[:id]}")
 	  	end
