@@ -3,19 +3,20 @@ class EventsController < ApplicationController
   	if session[:logged_in] then
       friends = User.find(session[:user_id]).friends
       @events = []
-      friends.each do |friend|
-        events = Event.find(:all, :conditions => { :creator => friend.user_id})
-        events.each do |event|
+      if params[:id].present? then
+        @events = Event.find(:all, :conditions => "id = #{params[:id]}")
+      else
+        friends.each do |friend|
+          events = Event.find(:all, :conditions => { :creator => friend.user_id})
+          events.each do |event|
+            @events << event
+          end
+        end
+        me = User.find(session[user_id])
+        me.events.each do |event|
           @events << event
         end
       end
-      me = User.find(session[user_id])
-      me.events.each do |event|
-        @events << event
-      end
-	  	if params[:id].present? then
-	  		@events = Event.find(:all, :conditions => "id = #{params[:id]}")
-	  	end
       @events = @events.sort{|a, b| Event.chronological_sort(a, b)}
     else
     	redirect_to "/events/login_screen"
