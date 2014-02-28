@@ -12,7 +12,7 @@ class EventsController < ApplicationController
             @events << event
           end
         end
-        me = User.find(session[user_id])
+        me = User.find(session[:user_id])
         me.events.each do |event|
           @events << event
         end
