@@ -8,11 +8,10 @@
 		<hr>
 		<h2>Attending:</h2>
 
-		<% for event in user.events do %>
-			<p>
-				<a href="/events/index/<%= event.id %>"><%= event.title %></a>
-			</p>
-		<% end %>
+		<% @events = user.events.sort{|a, b| Event.chronological_sort(a, b)} %>
+		<div class="container">
+			<%= render partial: "events/event_tab", locals: { events: @events} %>
+		</div>
 
 		<form action="/users/delete_friend" class="form-horizontal" role="form">
 			<% if !home_account then %>
