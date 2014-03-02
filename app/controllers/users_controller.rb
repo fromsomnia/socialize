@@ -111,18 +111,17 @@ class UsersController < ApplicationController
   end
 
   def update
+    @user = User.find(session[:user_id])
     if(params[:user][:image] != nil) then
       image_name = params[:user][:image].original_filename
       just_filename = File.basename(image_name) 
       just_filename = just_filename.sub(/[^\w\.\-]/,'_')
+      save_name = "#{@user.last_name.sub(/[^\w\.\-]/,'_')}_#{@user.first_name.sub(/[^\w\.\-]/,'_')}_" + just_filename
       directory = "#{Rails.root}/app/assets/images/profile_pics"
-      path = File.join(directory, just_filename)
+      path = File.join(directory, save_name)
       File.open(path, "wb") { |f| f.write(params[:user][:image].read) }
-      params[:user][:image] = "/assets/profile_pics/" + just_filename
-    else
-      params[:user][:image] = nil
+      params[:user][:image] = "/assets/profile_pics/" + save_name
     end
-  	@user = User.find(session[:user_id])
   	if @user.update_attributes(params[:user])
 		  redirect_to "/users/index/#{@user.id}"
 	else
