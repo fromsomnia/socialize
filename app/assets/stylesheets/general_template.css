@@ -172,6 +172,11 @@ img.event-tab-icon {
 	max-width: 75px;
 }
 
+img.edit-user-image {
+	width: 200px;
+	height: 200px;
+}
+
 .centered-search-tab-body {
 	margin-top: 5px;
 	margin-right: 5px;
