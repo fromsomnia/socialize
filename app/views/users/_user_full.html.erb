@@ -1,40 +1,48 @@
-<% for user in users do %>
-	<div class="container user center-block">
-		<h3>
-			<a href="/users/index/<%= user.id %>"><%= user.first_name + " " + user.last_name %></a>
-		</h3>
-		<img src="<%= user.image %>" class="img-responsive img-rounded" alt="<%= user.first_name %>">
-		<p><%= user.description %></p>
-		<hr>
-		<% @user_name = user.first_name %>
-		<% @verb = "is" %>
-		<% if user.id.to_i == session[:user_id].to_i then %>
-			<% @user_name = "You" %>
-			<% @verb = "are" %>
-		<% end %>
-		<h3><a href ="/users/index/<%= user.id %>"><%= @user_name %></a> <%= @verb %> attending:</h3>
+	<% for user in users do %>
+		<div class="container user center-block">
+			<h3>
+				<a href="/users/index/<%= user.id %>"><%= user.first_name + " " + user.last_name %></a>
+			</h3>
+			<img src="<%= user.image %>" class="img-responsive img-rounded" alt="<%= user.first_name %>">
+			<p><%= user.description %></p>
+			<hr>
+			
+			<% @events = user.events.sort{|a, b| Event.chronological_sort(a, b)} %>
+			<% if !@events.empty? then %>
+				<% @user_name = user.first_name %>
+				<% @verb = "is" %>
+				<% if user.id.to_i == session[:user_id].to_i then %>
+					<% @user_name = "You" %>
+					<% @verb = "are" %>
+				<% end %>
+				<h3><a href ="/users/index/<%= user.id %>"><%= @user_name %></a> <%= @verb %> attending:</h3>
+			<% else %>
+				<h3>You are not currently attending any events</h3>
+				<h4><a href="/events/create">Click Here to create a new event</a></h4>
+				<h4><a href="/users/search">Click Here to add a new friend</a></h4>
+			<% end %>
+			
+			<div class="container">
+				<%= render partial: "events/event_tab", locals: { events: @events} %>
+			</div>
 
-		<% @events = user.events.sort{|a, b| Event.chronological_sort(a, b)} %>
-		<div class="container">
-			<%= render partial: "events/event_tab", locals: { events: @events} %>
+			<form action="/users/delete_friend" class="form-horizontal" role="form">
+				<% if !home_account then %>
+		  			<div class="form-group">
+		  				<input type="text" class="form-control hidden" name="user_id" id="accept-request-input" value="<%= user.id %>">
+		    			<div class="col-sm-offset-2 col-sm-10">
+		    				<button class="btn btn-danger btn-block" id="update_button">Remove Friend</button>
+		    			</div>
+		  			</div>
+		  		<% end %>
+		  		<div class="form-group">
+		  			<div class="container col-sm-offset-2 col-sm-10 cancel-back-button">
+						<%= link_to_function "Back", "history.back()", class: "btn btn-primary btn-block" %>
+		    		</div>
+		  		</div>
+			</form>
+
 		</div>
+		<hr>
+	<% end %>
 
-		<form action="/users/delete_friend" class="form-horizontal" role="form">
-			<% if !home_account then %>
-	  			<div class="form-group">
-	  				<input type="text" class="form-control hidden" name="user_id" id="accept-request-input" value="<%= user.id %>">
-	    			<div class="col-sm-offset-2 col-sm-10">
-	    				<button class="btn btn-danger btn-block" id="update_button">Remove Friend</button>
-	    			</div>
-	  			</div>
-	  		<% end %>
-	  		<div class="form-group">
-	  			<div class="container col-sm-offset-2 col-sm-10 cancel-back-button">
-					<%= link_to_function "Back", "history.back()", class: "btn btn-primary btn-block" %>
-	    		</div>
-	  		</div>
-		</form>
-
-	</div>
-	<hr>
-<% end %>
