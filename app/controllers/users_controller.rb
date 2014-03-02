@@ -87,6 +87,18 @@ class UsersController < ApplicationController
   end
 
   def save
+    if(params[:user][:image] != nil) then
+      image_name = params[:user][:image].original_filename
+      just_filename = File.basename(image_name) 
+      just_filename = just_filename.sub(/[^\w\.\-]/,'_')
+      save_name = "#{params[:user][:last_name].sub(/[^\w\.\-]/,'_')}_#{params[:user][:first_name].sub(/[^\w\.\-]/,'_')}_" + just_filename
+      directory = "#{Rails.root}/app/assets/images/profile_pics"
+      path = File.join(directory, save_name)
+      File.open(path, "wb") { |f| f.write(params[:user][:image].read) }
+      params[:user][:image] = "/assets/profile_pics/" + save_name
+    else
+      params[:user][:image] = "/assets/profile_pics/profile-default.jpg"
+    end
   	@new_user = User.new(params[:user])
   	if @new_user.save then
   		session[:user_id] = @new_user.id
