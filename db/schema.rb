@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(:version => 20140221042618) do
   create_table "users", :force => true do |t|
     t.string "first_name"
     t.string "last_name"
-    t.string "image_url"
+    t.string "image"
     t.string "description"
     t.string "username"
     t.string "password"

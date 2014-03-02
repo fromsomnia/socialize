@@ -6,7 +6,7 @@
 	<% for user in users do %>
 		<li class="media no-tab-spacing request-tab">
 			<a class="pull-left" href="/users/index/<%= user.id %>">
-					<img class="media-object img-responsive img-circle user-tab-icon" src="<%= user.image_url %>" alt="<%= user.first_name %>">
+					<img class="media-object img-responsive img-circle user-tab-icon" src="<%= user.image %>" alt="<%= user.first_name %>">
 			</a>
 			<div class="media-body user-tab-centered">
 				<h4 class="media-heading">
