@@ -1,0 +1,10 @@
+<div class="container" id="all-users-container">
+	<% if !params[:query].blank? %>
+		<hr>
+		<h3>results matching <%= " \"" + "#{params[:query]}\"" %></h3>
+		<hr>
+	<% else %>
+		<h3>Enter Search</h3>
+	<% end %>
+	<%= render partial: "user_tab", locals: { users: @results } %>
+</div>

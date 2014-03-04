@@ -50,6 +50,12 @@ margin: 0;
 	border-radius: 0;
 }
 
+#search-button {
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+}
+
 #all-users-container {
 	padding-top: 150px;
 	padding-bottom: 50px;
@@ -151,6 +157,11 @@ img.user-tab-icon {
 
 div.user-tab-centered {
 	margin-top: 30px;
+}
+
+div.fitted-event {
+	max-width: inherit;
+	width: auto;
 }
 
 hr.divide-user-tabs {

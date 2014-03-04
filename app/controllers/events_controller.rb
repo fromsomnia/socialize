@@ -1,13 +1,17 @@
 class EventsController < ApplicationController
   def index
   	if session[:logged_in] then
-      friends = User.find(session[:user_id]).friends
+      friendships = Friendship.find(:all, :conditions => { :user_id => session[:user_id]})
+      friends = []
+      friendships.each do |friendship|
+        if friendship.accepted then
+          friends << User.find(friendship.friend.user_id)
+        end
+      end
       @events = []
-      if params[:id].present? then
-        @events = Event.find(:all, :conditions => "id = #{params[:id]}")
-      else
+      if !params[:id].present? then
         friends.each do |friend|
-          events = Event.find(:all, :conditions => { :creator => friend.user_id})
+          events = Event.find(:all, :conditions => { :creator => friend.id})
           events.each do |event|
             @events << event
           end
@@ -16,6 +20,10 @@ class EventsController < ApplicationController
         me.events.each do |event|
           @events << event
         end
+      else
+          if friends.include?(User.find(Event.find(params[:id]).creator)) || session[:user_id].to_i == Event.find(params[:id]).creator.to_i then
+            @events << Event.find(params[:id])
+          end
       end
       @events = @events.sort{|a, b| Event.chronological_sort(a, b)}
     else

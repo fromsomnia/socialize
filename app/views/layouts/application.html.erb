@@ -88,15 +88,30 @@
 	  		<% at_friends_page = true %>
 
 	  		<div> <!-- class="col-lg-6" -->
-				<div class="input-group" id="add-friends-panel">
-      				<input type="text" class="form-control" placeholder="Search for friends" id="search-friends-input">
-      				<span class="input-group-btn">
-        				<a href="/users/search-results/<%= params[:id] %>" class="btn btn-success">Search</a>
-      				</span>
-    			</div><!-- /input-group -->
+	  			<form action="/users/search_results">
+					<div class="input-group" id="add-friends-panel">
+	      				<input name="query" type="text" class="form-control" placeholder="Search for friends" id="search-friends-input">
+	      				<span class="input-group-btn">
+	      					<%= submit_tag "Search", class: "btn btn-success", id: "search-button" %>
+	      				</span>
+	    			</div><!-- /input-group -->
+    			</form>
 			</div><!-- /.col-lg-6 -->
 
 	  	<% end %>
+	<% elsif %>
+		<% if controller.action_name.eql?("search_results") then %>
+			<div> <!-- class="col-lg-6" -->
+	  			<form action="/users/search_results">
+					<div class="input-group" id="add-friends-panel">
+	      				<input name="query" type="text" class="form-control" placeholder="Search for friends" id="search-friends-input">
+	      				<span class="input-group-btn">
+	      					<%= submit_tag "Search", id: "search-button", class: "btn btn-success" %>
+	      				</span>
+	    			</div><!-- /input-group -->
+    			</form>
+			</div><!-- /.col-lg-6 -->
+		<% end %>
 	<% end %>
 <% end %>
 </div>
@@ -105,9 +120,13 @@
 	<div class="container" id="edit-filler"></div>
 <% end %>
 
+<% if controller.action_name.eql?("search_results") then %>
+	<div class="container" id="edit-filler"></div>
+<% end %>
+
 <%= yield %>
 
-<% if session[:logged_in] then %>
+<% if session[:logged_in] && !controller.action_name.eql?("create") && !controller.action_name.eql?("edit") %>
 	<nav class="navbar navbar-custom navbar-fixed-bottom" role="navigation">
 		<form class="navbar-form" role="add_event" id="add-event-bar" action="/events/create">
 			<button type="submit" class="btn btn-primary navbar-btn center-block" id="submit-button-block">Add Event</button>

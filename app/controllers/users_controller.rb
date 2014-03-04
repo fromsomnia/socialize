@@ -182,6 +182,20 @@ class UsersController < ApplicationController
     send_data(@photo.data, :type => @photo.mime_type, :filename => "#{@photo.name}.jpg", :disposition => "inline")
   end
 
+  def search_results
+    query = params[:query]
+    @results = []
+    if !query.blank? then
+      User.all.each do |user|
+        if (user.first_name + " " + user.last_name).include?(query) || user.username.include?(query) then
+          if user.id.to_i != session[:user_id].to_i then
+            @results << user
+          end
+        end
+      end
+    end
+  end
+
   def search
     query = params[:query]
     @results = []
