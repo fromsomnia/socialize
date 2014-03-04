@@ -142,6 +142,30 @@ class UsersController < ApplicationController
 	end	
   end
 
+  def create_photo
+    # build a photo and pass it into a block to set other attributes
+    @photo = Photo.new(params[:photo]) do |t|
+      if params[:photo][:data]
+        t.data      = params[:photo][:data].read
+        t.filename  = params[:photo][:data].original_filename
+        t.mime_type = params[:photo][:data].content_type
+      end
+    end
+    
+    # normal save
+    @photo.save
+  end
+
+  def destroy_photo
+    @photo = Photo.find(params[:id])
+    @photo.destroy
+  end
+
+  def serve_photo
+    @photo = Photo.find(params[:id])
+    send_data(@photo.data, :type => @photo.mime_type, :filename => "#{@photo.name}.jpg", :disposition => "inline")
+  end
+
   def search
     query = params[:query]
     @results = []
