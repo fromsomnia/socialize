@@ -70,6 +70,7 @@ function initializePage() {
 				enclosing_event.switchClass("attending-event", "not-attending-event", 1000);
 			}else{
 				enclosing_event.switchClass("not-attending-event", "attending-event", 1000);
+				ga("send", "event", "joinEvent", "click");
 			}
 			$(this).toggleClass("btn-success");
        		$(this).toggleClass("btn-default");
@@ -81,6 +82,16 @@ function initializePage() {
 				$(this).attr("value", "Leave Event");
 			}
 		});
+	});
+
+	$('#create-event-button').click(function() {
+		ga("send", "event", "finishEventCreation", "click");
+		console.log("finished event");
+	});
+	
+	$('#submit-button-block').click(function() {
+		ga("send", "event", "startEventCreation", "click");
+		console.log("started event");
 	});
 
 	$( "#search-friends-input" ).autocomplete({
