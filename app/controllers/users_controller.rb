@@ -91,16 +91,24 @@ class UsersController < ApplicationController
       image_name = params[:user][:image].original_filename
       just_filename = File.basename(image_name) 
       just_filename = just_filename.sub(/[^\w\.\-]/,'_')
-      save_name = "#{params[:user][:last_name].sub(/[^\w\.\-]/,'_')}_#{params[:user][:first_name].sub(/[^\w\.\-]/,'_')}_" + just_filename
-      directory = "#{Rails.root}/app/assets/images/profile_pics"
-      path = File.join(directory, save_name)
-      File.open(path, "wb") { |f| f.write(params[:user][:image].read) }
-      params[:user][:image] = "/assets/profile_pics/" + save_name
+      save_name = "#{params[:user][:last_name].sub(/[^\w\.\-]/,'_')}-#{params[:user][:first_name].sub(/[^\w\.\-]/,'_')}-profile-pic"
+      @photo = Photo.new() do |t|
+        t.name      = save_name
+        t.data      = params[:user][:image].read
+        t.filename  = just_filename
+        t.mime_type = params[:user][:image].content_type
+      end
+      params[:user][:image] = ""
     else
-      params[:user][:image] = "/assets/profile_pics/profile-default.jpg"
+      params[:user][:image] = Photo.find_by_name("profile-default").id
     end
   	@new_user = User.new(params[:user])
   	if @new_user.save then
+      if @photo != nil then
+        @photo.save
+        @new_user.image = @photo.id
+        @new_user.save
+      end
   		session[:user_id] = @new_user.id
   		session[:logged_in] = true
       friend = Friend.new
@@ -128,18 +136,26 @@ class UsersController < ApplicationController
       image_name = params[:user][:image].original_filename
       just_filename = File.basename(image_name) 
       just_filename = just_filename.sub(/[^\w\.\-]/,'_')
-      save_name = "#{@user.last_name.sub(/[^\w\.\-]/,'_')}_#{@user.first_name.sub(/[^\w\.\-]/,'_')}_" + just_filename
-      directory = "#{Rails.root}/app/assets/images/profile_pics"
-      path = File.join(directory, save_name)
-      File.open(path, "wb") { |f| f.write(params[:user][:image].read) }
-      params[:user][:image] = "/assets/profile_pics/" + save_name
+      save_name = "#{@user.last_name.sub(/[^\w\.\-]/,'_')}-#{@user.first_name.sub(/[^\w\.\-]/,'_')}-profile-pic"
+      @photo = Photo.new() do |t|
+        t.name      = save_name
+        t.data      = params[:user][:image].read
+        t.filename  = just_filename
+        t.mime_type = params[:user][:image].content_type
+      end
+      params[:user][:image] = ""
     end
   	if @user.update_attributes(params[:user])
+      if @photo != nil then
+        @photo.save 
+        @user.image = @photo.id
+        @user.save
+      end
 		  redirect_to "/users/index/#{@user.id}"
-	else
+	   else
 		#redirect_to "/users/edit/#{@user.id}"
-		render "edit"
-	end	
+		  render "edit"
+	   end	
   end
 
   def create_photo
