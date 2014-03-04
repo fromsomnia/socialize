@@ -111,7 +111,7 @@ function initializePage() {
             				label: user.first_name + " " + user.last_name,
             				value: user.username,
             				id: user.id,
-            				image_url: user.image_url,
+            				image: user.image,
             				username: user.username
               			}
             		}));
@@ -139,7 +139,7 @@ function initializePage() {
             .append(
             	"<a href=\"/users/index/" + user.id + "\">" +
             	"<span class=\"pull-left\">" + 
-					"<img class=\"media-object img-responsive img-circle user-search-icon\" src=\"" + user.image_url + "\">" +
+					"<img class=\"media-object img-responsive img-circle user-search-icon\" src=\"/users/serve_photo/" + user.image + "\">" +
 				"</span>" +
 					"<div class=\"media-body centered-search-tab-body\">" +
 						"<h5 class=\"media-heading\">" +

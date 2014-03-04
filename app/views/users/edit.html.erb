@@ -30,7 +30,7 @@
 
 	    <div class="form-group container">
 		    <div class="center-block">
-		   		<img src="<%= @user.image %>" class="img-responsive edit-user-image img-rounded" alt="<%= @user.first_name %>">
+		    	<%= image_tag "/users/serve_photo/#{@user.image}", :class => "img-responsive edit-user-image img-rounded", :alt => "#{@user.first_name}" %>
 		   	</div>
 		</div>
 
