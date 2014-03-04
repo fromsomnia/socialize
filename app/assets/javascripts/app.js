@@ -71,6 +71,7 @@ function initializePage() {
 			}else{
 				enclosing_event.switchClass("not-attending-event", "attending-event", 1000);
 				ga("send", "event", "joinEvent", "click");
+				console.log("joining event test");
 			}
 			$(this).toggleClass("btn-success");
        		$(this).toggleClass("btn-default");
