@@ -16,7 +16,7 @@
 					<% @verb = "are" %>
 				<% end %>
 				<h3><a href ="/users/index/<%= user.id %>"><%= @user_name %></a> <%= @verb %> attending:</h3>
-			<% else %>
+			<% elsif user.id == session[:user_id].to_i then %>
 				<h5>You are not currently attending any events</h5>
 				<p><a href="/events/create">click here to create a new event</a></p>
 				<p><a href="/users/search_results">click here to add a new friend</a></p>
