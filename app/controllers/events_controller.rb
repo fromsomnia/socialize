@@ -13,17 +13,24 @@ class EventsController < ApplicationController
         friends.each do |friend|
           events = Event.find(:all, :conditions => { :creator => friend.id})
           events.each do |event|
-            @events << event
+            if event.isCurrent? then
+              @events << event
+            end
           end
         end
         events = Event.find(:all, :conditions => { :creator => session[:user_id].to_i})
         events.each do |event|
-          @events << event
+          if event.isCurrent? then
+            @events << event
+          end
         end
       else
-          if friends.include?(User.find(Event.find(params[:id]).creator)) || session[:user_id].to_i == Event.find(params[:id]).creator.to_i then
-            @events << Event.find(params[:id])
-          end
+          #if friends.include?(User.find(Event.find(params[:id]).creator)) || session[:user_id].to_i == Event.find(params[:id]).creator.to_i then
+            event = Event.find(params[:id])
+            if event.isCurrent? then
+              @events << event
+            end
+          #end
       end
       @events = @events.sort{|a, b| Event.chronological_sort(a, b)}
     else

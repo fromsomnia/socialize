@@ -5,19 +5,38 @@ class Event < ActiveRecord::Base
 		end
 	}
 
+  def self.currentEvents(list)
+    @result = []
+    list.each do |item|
+      if item.isCurrent? then
+        @result << item
+      end
+    end
+    return @result
+  end
+
   def isCurrent?
-    if (self.year == year - 1 && self.month == 12 && month == 1 && self.day == 31 && day == 1 && self.hour >= 21 && am_pm = "am" && hour <= 3) then
+    puts "Now:"
+    puts " Year: " + self.class.year.to_s
+    puts " Month: " + self.class.month.to_s
+    puts " Current Day: " + self.class.day.to_s
+    puts " Compare Day: " + day.to_s
+    puts " Hour: " + self.class.hour.to_s
+    puts " Min: " + self.class.min.to_s
+    if (year == self.class.year - 1 && month == 12 && self.class.month == 1 && day == 31 && self.class.day == 1 && hour >= 21 && self.class.am_pm = "am" && self.class.hour <= 3) then
       return true
-    elsif self.year > year then
+    elsif year > self.class.year then
       return true
-    elsif self.year == year && self.month > month then
+    elsif year == self.class.year && month > self.class.month then
       return true
-    elsif self.year == year && self.month == month && self.day > day then
+    elsif year == self.class.year && month == self.class.month && day > self.class.day then
       return true
-    elsif self.year == year && self.month == month && self.day == day && self.hour + 6 >= hour then
+    elsif year == self.class.year && month == self.class.month && day == self.class.day && hour + 6 >= self.class.hour then
       return true
-    elsif self.year == year && self.month == month && self.day == day - 1 then
-      if self.hour >= 21 && hour <= 3 then
+    elsif year == self.class.year && month == self.class.month && am_pm.eql?("AM") && hour == 12 && day == self.class.day && hour <= self.class.hour + 8 then
+      return true
+    elsif year == self.class.year && month == self.class.month && day == self.class.day - 1 then
+      if hour >= 21 && self.class.hour <= 3 then
         return true
       else
         return false
@@ -34,12 +53,12 @@ class Event < ActiveRecord::Base
 
   def month
     date_object = self.date.split('/')
-    return date[0].to_i
+    return date_object[0].to_i
   end
 
   def day
     date_object = self.date.split('/')
-    return date[1].to_i
+    return date_object[1].to_i
   end
 
   def am_pm
@@ -51,7 +70,9 @@ class Event < ActiveRecord::Base
     time_object = self.time.split(' ')
     hour_min = time_object[0].split(':')
     time = hour_min[0].to_i
-    if am_pm.eql("pm") time = time + 12
+    if am_pm.eql?("PM") then
+      time = time + 12
+    end
     return time
   end
 
@@ -76,14 +97,15 @@ class Event < ActiveRecord::Base
     return @timer.day.to_i
   end
 
-  def am_pm
+  def self.am_pm
     @timer = Time.now
-    return @timer.strftime(%p).downcase
+    return @timer.strftime("%p").to_s
   end
 
   def self.hour
     @timer = Time.now
-    return @timer.strftime(%H).to_i
+    time = @timer.strftime("%H")
+    return time.to_i
   end
 
   def self.min
