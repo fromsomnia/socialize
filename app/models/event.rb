@@ -5,6 +5,28 @@ class Event < ActiveRecord::Base
 		end
 	}
 
+  def isCurrent?
+    if (self.year == year - 1 && self.month == 12 && month == 1 && self.day == 31 && day == 1 && self.hour >= 21 && am_pm = "am" && hour <= 3) then
+      return true
+    elsif self.year > year then
+      return true
+    elsif self.year == year && self.month > month then
+      return true
+    elsif self.year == year && self.month == month && self.day > day then
+      return true
+    elsif self.year == year && self.month == month && self.day == day && self.hour + 6 >= hour then
+      return true
+    elsif self.year == year && self.month == month && self.day == day - 1 then
+      if self.hour >= 21 && hour <= 3 then
+        return true
+      else
+        return false
+      end
+    else
+      return false
+    end
+  end
+
   def year
     date_object = self.date.split('/')
     return date_object[2].to_i
@@ -20,10 +42,17 @@ class Event < ActiveRecord::Base
     return date[1].to_i
   end
 
+  def am_pm
+    time_object = self.time.split(' ')
+    return time_object[1]
+  end
+
   def hour
     time_object = self.time.split(' ')
     hour_min = time_object[0].split(':')
-    return hour_min[0].to_i
+    time = hour_min[0].to_i
+    if am_pm.eql("pm") time = time + 12
+    return time
   end
 
   def min
@@ -47,9 +76,14 @@ class Event < ActiveRecord::Base
     return @timer.day.to_i
   end
 
+  def am_pm
+    @timer = Time.now
+    return @timer.strftime(%p).downcase
+  end
+
   def self.hour
     @timer = Time.now
-    return @timer.strftime(%I).to_i
+    return @timer.strftime(%H).to_i
   end
 
   def self.min
