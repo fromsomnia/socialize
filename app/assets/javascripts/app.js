@@ -117,6 +117,7 @@ function initializePage() {
             		}));
         		}
     		});
+    		response(results.slice(0, 10));
       	},
       	minLength: 1,
       	select: function( event, ui ) {

@@ -16,8 +16,8 @@ class EventsController < ApplicationController
             @events << event
           end
         end
-        me = User.find(session[:user_id])
-        me.events.each do |event|
+        events = Event.find(:all, :conditions => { :creator => session[:user_id].to_i})
+        events.each do |event|
           @events << event
         end
       else
