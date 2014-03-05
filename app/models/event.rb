@@ -4,6 +4,58 @@ class Event < ActiveRecord::Base
 			user.events.delete(event)
 		end
 	}
+
+  def year
+    date_object = self.date.split('/')
+    return date_object[2].to_i
+  end
+
+  def month
+    date_object = self.date.split('/')
+    return date[0].to_i
+  end
+
+  def day
+    date_object = self.date.split('/')
+    return date[1].to_i
+  end
+
+  def hour
+    time_object = self.time.split(' ')
+    hour_min = time_object[0].split(':')
+    return hour_min[0].to_i
+  end
+
+  def min
+    time_object = self.time.split(' ')
+    hour_min = time_object[0].split(':')
+    return hour_min[1].to_i
+  end
+
+  def self.year
+    @timer = Time.now
+    return @timer.year.to_i
+  end
+
+  def self.month
+    @timer = Time.now
+    return @timer.month.to_i
+  end
+
+  def self.day
+    @timer = Time.now
+    return @timer.day.to_i
+  end
+
+  def self.hour
+    @timer = Time.now
+    return @timer.strftime(%I).to_i
+  end
+
+  def self.min
+    @timer = Time.now
+    return @timer.min.to_i
+  end
 	
   attr_accessible :title, :description, :date, :time, :place, :address, :creator
   has_and_belongs_to_many :users

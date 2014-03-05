@@ -1,5 +1,7 @@
 class EventsController < ApplicationController
   def index
+    puts "+++++++++++++++++++++++++++"
+    Event.time
   	if session[:logged_in] then
       friendships = Friendship.find(:all, :conditions => { :user_id => session[:user_id]})
       friends = []
