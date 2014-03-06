@@ -12,6 +12,7 @@ class UsersController < ApplicationController
           end
         end
 	  	end
+      @users = @users.sort{|a, b| User.alphabetical_sort(a, b)}
       @new_friendship = Friendship.new
 	  	@nav_bar = "All Users"
 	else
@@ -183,16 +184,17 @@ class UsersController < ApplicationController
   end
 
   def search_results
-    query = params[:query]
+    query = params[:query].downcase
     @results = []
     if !query.blank? then
       User.all.each do |user|
-        if (user.first_name + " " + user.last_name).include?(query) || user.username.include?(query) then
+        if (user.first_name + " " + user.last_name).downcase.include?(query) || user.username.downcase.include?(query) then
           if user.id.to_i != session[:user_id].to_i then
             @results << user
           end
         end
       end
+      @results = @results.sort{|a, b| User.alphabetical_sort(a, b)}
     end
   end
 
@@ -206,6 +208,7 @@ class UsersController < ApplicationController
         end
       end
     end
+    @results = @results.sort{|a, b| User.alphabetical_sort(a, b)}
     render json: @results
   end
 

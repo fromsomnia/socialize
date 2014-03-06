@@ -41,11 +41,12 @@
 
 		<p><%= event.description %></p>
 
-		<ul>
-			<li>Place: <%= event.place %></li>
-			<li>Date: <%= event.date %></li>
-			<li>Time: <%= event.time %></li>
+		<ul class="event-info">
+			<li>PLACE: <%= event.place %></li>
+			<li>DATE: <%= event.getPurtyDate %></li>
+			<li>TIME: <%= event.getPurtyTime %></li>
 		</ul>
+
 		<div>	
 			<%= render partial: "attendees", locals: { event: event } %>
 		</div>

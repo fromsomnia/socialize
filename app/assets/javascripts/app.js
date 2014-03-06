@@ -26,11 +26,29 @@ $(document).ready(function() {
 	});
 }*/
 
+function timedReveal(obj, event) {
+	console.log("ENTERS TIME REVEAL");
+    obj.unbind(event);
+    obj.fadeOut(300).delay(2000).fadeIn(300, function(){
+		obj.click(function(){
+			timedReveal(obj)
+		})
+	});
+}
+
 /*
  * Function that is called when the document is ready.
  */
 function initializePage() {
 	console.log("Jascript Added!");
+	$(".event-info-container").each(function(){
+		var cover = $(this).find(".event-info-cover");
+		var cover_val = $(this).find(".event-info-cover").attr("class")
+		console.log(cover_val);
+		cover.bind("click", function(event){
+			timedReveal($(cover), event)
+		});
+	});
 	$("form.event-form").each(function(index){
 		var form_obj = $(this);
 		$(this).ajaxForm(function(){
@@ -71,7 +89,6 @@ function initializePage() {
 			}else{
 				enclosing_event.switchClass("not-attending-event", "attending-event", 1000);
 				ga("send", "event", "joinEvent", "click");
-				console.log("joining event test");
 			}
 			$(this).toggleClass("btn-success");
        		$(this).toggleClass("btn-default");
@@ -106,7 +123,7 @@ function initializePage() {
          		},
        			 success: function( data ) {
        			 	console.log(data);
-            		response( $.map( data, function( user ) {
+            		response( $.map( data.slice(0,5), function( user ) {
             			return {
             				label: user.first_name + " " + user.last_name,
             				value: user.username,
@@ -117,7 +134,6 @@ function initializePage() {
             		}));
         		}
     		});
-    		response(results.slice(0, 10));
       	},
       	minLength: 1,
       	select: function( event, ui ) {

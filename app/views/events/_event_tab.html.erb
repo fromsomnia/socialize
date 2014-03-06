@@ -26,10 +26,20 @@
 					<p>By <a href="/users/index/<%= event.creator %>"><%= creator.first_name + " " + creator.last_name %></a></p>
 				</div>
 			</li>
-			<span class="pull-right">
-				<p>DATE: <%= event.date %><br>
-				 TIME: <%= event.time %></p>
-			</span>
+			
+			<div class="event-info-container" event-info-container-id="<%= event.id %>">
+				<span class="pull-right event-info-padding">
+					<div class="event-info-outline">
+						<div>DATE: <%= event.getPurtyDate %></div>
+						<div>TIME: <%= event.getPurtyTime.to_s %></div>
+					</div>
+				</span>
+				<div class="event-info-cover <%= event.getTimeColorClass %>" event-info-cover-id="<%= event.id %>">
+					<div class="relative-event-date"><%= event.getRelativeDate.to_s %></div>
+					<div class="relative-event-time"><%= event.getRelativeTime.to_s %></div>
+					<div class="more-info-indicator">more</div>
+				</div>
+			</div>
 		</ul>
 
 		<form action="/events/toggle_attendance" class="form-horizontal event-form" role="form">

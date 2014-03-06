@@ -11,7 +11,9 @@ class EventsController < ApplicationController
           @events << event
         end
       end
-      @events.sort{|a, b| Event.chronological_sort(a, b)}
+      if !@events.nil? then
+        @events = @events.sort{|a, b| Event.chronological_sort(a, b)}
+      end
     else
     	redirect_to "/events/login_screen"
     end

@@ -6,9 +6,12 @@
 			<%= image_tag "/users/serve_photo/#{user.image}", :class => "img-responsive img-rounded", :alt => "#{user.first_name}" %>
 			<p><%= user.description %></p>
 			<hr>
-			
-			<% @events = Event.currentEvents(user.events).sort{|a, b| Event.chronological_sort(a, b)} %>
-			<% if !@events.empty? then %>
+			<% logged_in_user = User.find(session[:user_id].to_i) %>
+			<% @events = user.getCurrentEventsAttending %>
+			<% if !@events.nil? then %>
+				<% @events = @events.sort{|a, b| Event.chronological_sort(a, b)} %>
+			<% end %>
+			<% if !@events.blank? then %>
 				<% @user_name = user.first_name %>
 				<% @verb = "is" %>
 				<% if user.id.to_i == session[:user_id].to_i then %>
@@ -16,15 +19,14 @@
 					<% @verb = "are" %>
 				<% end %>
 				<h4><a href ="/users/index/<%= user.id %>"><%= @user_name %></a> <%= @verb %> attending:</h4>
+				<div class="container fitted-event">
+					<%= render partial: "events/event_tab", locals: { events: @events} %>
+				</div>
 			<% elsif user.id == session[:user_id].to_i then %>
 				<h5>You are not currently attending any events</h5>
 				<p><a href="/events/create">click here to create a new event</a></p>
 				<p><a href="/users/search_results">click here to add a new friend</a></p>
 			<% end %>
-			
-			<div class="container fitted-event">
-				<%= render partial: "events/event_tab", locals: { events: @events} %>
-			</div>
 
 			<form action="/users/delete_friend" class="form-horizontal" role="form">
 				<% if !home_account then %>
@@ -35,11 +37,6 @@
 		    			</div>
 		  			</div>
 		  		<% end %>
-		  		<div class="form-group">
-		  			<div class="container col-sm-offset-1 col-sm-10 cancel-back-button">
-						<%= link_to_function "Back", "history.back()", class: "btn btn-primary btn-block" %>
-		    		</div>
-		  		</div>
 			</form>
 
 		</div>

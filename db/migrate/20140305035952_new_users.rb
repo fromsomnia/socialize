@@ -1,6 +1,6 @@
 class NewUsers < ActiveRecord::Migration
   def up
-  	User.delete_all
+  	#User.delete_all
 
   	default_image = Photo.find_by_name("profile-default").id.to_s
 
@@ -76,8 +76,8 @@ class NewUsers < ActiveRecord::Migration
 	silviana.save(:validate => false)
 	victor = User.new(:username => "victor", :image => default_image, :password => "victor", :first_name => "Victor", :last_name => "Verdejo", :description => "victor15@stanford.edu")
 	victor.save(:validate => false)
-	vilde = User.new(:username => "vilde", :image => default_image, :password => "vilde", :first_name => "Vilde", :last_name => "Opsal", :description => "vjopsal@stanford.edu")
-vilde.save(:validate => false)
+	#vilde = User.new(:username => "vilde", :image => default_image, :password => "vilde", :first_name => "Vilde", :last_name => "Opsal", :description => "vjopsal@stanford.edu")
+	#vilde.save(:validate => false)
   end
 
   def down

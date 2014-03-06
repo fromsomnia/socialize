@@ -10,11 +10,13 @@
       $(function(){
       	$("#datepicker").prop('readonly', true);
       	$("#timepicker").prop('readonly', true);
-      	$('#datepicker').datetimepicker({
-      		controlType: 'select',
-      		altField: "#timepicker",
-			timeFormat: "h:mm tt",
+      	$('#datepicker').datepicker({
 			minDate: 0,
+			defaultValue: new Date(),
+		});
+		$("#timepicker").timepicker({
+			controlType: 'select',
+			timeFormat: "h:mm tt",
 			stepHour: 1,
 			stepMinute: 1
 		});
@@ -83,7 +85,7 @@
 		<% if params[:id].to_i == session[:user_id].to_i && !session[:user_id].nil? then %>
 			<% at_account_page = true %>
 	  		<div class="bt-group btn-group-justified" id="edit-panel">
-	  			<a href="/users/edit/<%= params[:id] %>" class="btn btn-warning btn-block">Edit Account</a>
+	  			<a href="/users/edit/<%= params[:id] %>" class="btn btn-info btn-block">Edit Account</a>
 	  		</div>
 	  	<% elsif params[:id].nil? %>
 	  		<% at_friends_page = true %>
