@@ -39,7 +39,7 @@ class Event < ActiveRecord::Base
       end
     end
     Time.zone = TZInfo::Timezone.get('America/Los_Angeles')
-    dateTime = Time.new(year, month, day, hour, min)
+    dateTime = Time.new(year, month, day, hour, min, 0, "-08:00")
     return dateTime
   end
 
@@ -64,17 +64,33 @@ class Event < ActiveRecord::Base
           return time.to_s + " hours ago"
         end
       else
-        return "in " + time.to_s + " hours"
+        if time.abs == 1 then
+          return "in " + time.to_s + " hour"
+        else
+          return "in " + time.to_s + " hours"
+        end
       end
     elsif diff.abs < (60*60*24*7) then
       time = (diff/(60*60*24)).to_i.abs
-      return ("in " + time.to_s + " days")
+      if time == 1 then
+        return ("in " + time.to_s + " day")
+      else
+        return ("in " + time.to_s + " days")
+      end
     elsif diff.abs < (60*60*24*30) then
       time = (diff/(60*60*24*7)).to_i.abs
-      return "in " + time.to_s + " weeks"
+      if time == 1 then
+        return "in " + time.to_s + " week"
+      else
+        return "in " + time.to_s + " weeks"
+      end
     elsif diff.abs < (60*60*24*365) then
       time = (diff/(60*60*24*30)).to_i.abs
-      return "in " + time.to_s + " months"
+      if time == 1 then
+        return "in " + time.to_s + " month"
+      else 
+        return "in " + time.to_s + " months"
+      end
     else
       time = (diff/(60*60*24*365)).to_i.abs
       if time == 1 then
