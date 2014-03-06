@@ -43,8 +43,9 @@ class Event < ActiveRecord::Base
   end
 
   def getRelativeTime
+    Time.zone = TZInfo::Timezone.get('America/Los_Angeles')
     time = self.getDateTime
-    now = Time.now
+    now = Time.zone.now
     diff = time - now
     if diff.abs < (60*60) then
       time = (diff/60).to_i.abs
@@ -84,8 +85,9 @@ class Event < ActiveRecord::Base
   end
 
   def getRelativeDate
+    Time.zone = TZInfo::Timezone.get('America/Los_Angeles')
     time = self.getDateTime
-    now = Time.now
+    now = Time.zone.now
     if ((now.to_i - (60 * 60 * 3))..now.to_i) === time.to_i then
       return "NOW"
     elsif (now.to_i..(now.to_i + 60 * 60 * 6)) === time.to_i then
@@ -98,8 +100,9 @@ class Event < ActiveRecord::Base
   end
 
   def getTimeColorClass
+    Time.zone = TZInfo::Timezone.get('America/Los_Angeles')
     time = self.getDateTime
-    now = Time.now
+    now = Time.zone.now
     if ((now.to_i - (60 * 60 * 3))..now.to_i) === time.to_i then
       return "happening-now"
     elsif (now.to_i..(now.to_i + 60 * 60 * 6)) === time.to_i then
@@ -112,8 +115,9 @@ class Event < ActiveRecord::Base
   end
 
   def getPurtyDate
+    Time.zone = TZInfo::Timezone.get('America/Los_Angeles')
     time = self.getDateTime
-    now = Time.now
+    now = Time.zone.now
     if time.year == now.year && time.yday == now.yday - 1 then
       return "YESTERDAY"
     elsif time.year == now.year && time.yday == now.yday then
