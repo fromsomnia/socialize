@@ -34,10 +34,11 @@ class Event < ActiveRecord::Base
     hour = time_component[0].to_i
     min = time_component[1].to_i
     if time[1].eql?("pm") then
-      if hour != 12 then
+      if hour.to_i != 12 then
         hour = hour + 12
       end
     end
+    Time.zone = TZInfo::Timezone.get('America/Los_Angeles')
     dateTime = Time.new(year, month, day, hour, min)
     return dateTime
   end
