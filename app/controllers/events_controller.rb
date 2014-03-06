@@ -1,38 +1,17 @@
 class EventsController < ApplicationController
   def index
   	if session[:logged_in] then
-      friendships = Friendship.find(:all, :conditions => { :user_id => session[:user_id]})
-      friends = []
-      friendships.each do |friendship|
-        if friendship.accepted then
-          friends << User.find(friendship.friend.user_id)
-        end
-      end
+      user = User.find(session[:user_id].to_i)
       @events = []
       if !params[:id].present? then
-        friends.each do |friend|
-          events = Event.find(:all, :conditions => { :creator => friend.id})
-          events.each do |event|
-            if event.isCurrent? then
-              @events << event
-            end
-          end
-        end
-        events = Event.find(:all, :conditions => { :creator => session[:user_id].to_i})
-        events.each do |event|
-          if event.isCurrent? then
-            @events << event
-          end
-        end
+        @events = user.getCurrentEvents
       else
-          #if friends.include?(User.find(Event.find(params[:id]).creator)) || session[:user_id].to_i == Event.find(params[:id]).creator.to_i then
-            event = Event.find(params[:id])
-            if event.isCurrent? then
-              @events << event
-            end
-          #end
+        event = Event.find(params[:id])
+        if user.canViewEvent?(event)
+          @events << event
+        end
       end
-      @events = @events.sort{|a, b| Event.chronological_sort(a, b)}
+      @events.sort{|a, b| Event.chronological_sort(a, b)}
     else
     	redirect_to "/events/login_screen"
     end
