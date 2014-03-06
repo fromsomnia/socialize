@@ -34,7 +34,9 @@ class Event < ActiveRecord::Base
     hour = time_component[0].to_i
     min = time_component[1].to_i
     if time[1].eql?("pm") then
-      hour = hour + 12
+      if hour != 12 then
+        hour = hour + 12
+      end
     end
     dateTime = Time.new(year, month, day, hour, min)
     return dateTime
