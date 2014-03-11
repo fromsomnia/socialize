@@ -57,6 +57,30 @@ class EventsController < ApplicationController
   	end
   end
 
+  def delete_event
+    if session[:logged_in] && params[:id].present? then
+      @event = Event.find(params[:id].to_i)
+      if @event == nil then
+        redirect_to "/events/index"
+      end
+    else
+      flash[:notice] = "Failed Event Deletion"
+      redirect_to "/events/index"
+    end
+  end
+
+  def destroy
+    if session[:logged_in] && params[:id].present? then
+      event = Event.find(params[:id].to_i)
+      event.destroy
+      flash[:notice] = "Event Deleted"
+      redirect_to "/events/index"
+    else
+      flash[:notice] = "Failed Event Deletion"
+      redirect_to "/events/index"
+    end
+  end
+
   def save
   	@new_event = Event.new(params[:event])
   	if @new_event.save

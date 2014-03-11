@@ -6,6 +6,10 @@ body {
 
 }
 
+.delete-button {
+	margin-bottom: 20px;
+}
+
 .happening-now {
 	background-color: #5cb85c;
 	color: #003D00;
