@@ -3,7 +3,9 @@
 	<% if user.id.to_i != session[:user_id].to_i || params[:id].to_i == user.id.to_i then %>
 		<li class="media no-tab-spacing">
 			<a class="pull-left" href="#">
-					<%= image_tag "/users/serve_photo/#{user.image}", :class => "media-object img-responsive img-circle user-tab-icon", :alt => "#{user.first_name}" %>
+				<div class="col-xs-12 tab-image">
+					<div class="circular-image media-object img-responsive" alt="<%=user.first_name%>" style="background-image:url('/users/serve_photo/<%= user.image %>')"></div>
+				</div>
 			</a>
 			<div class="media-body user-tab-centered">
 				<h4 class="media-heading">

@@ -16,7 +16,9 @@
 		<ul class="media-list event-media-list-spacing">
 			<li class="media">
 				<a class="pull-left">
-					<%= image_tag "/users/serve_photo/#{creator.image}", :class => "media-object img-responsive img-circle event-tab-icon", :alt => "#{creator.first_name}" %>
+					<div class="col-xs-12 tab-image">
+						<div class="circular-image media-object img-responsive" alt="<%=creator.first_name%>" style="background-image:url('/users/serve_photo/<%= creator.image %>')"></div>
+					</div>
 				</a>
 				<div class="media-body">
 					<h4 class="media-heading">

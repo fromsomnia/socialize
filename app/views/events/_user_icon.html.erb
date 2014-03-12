@@ -1,7 +1,7 @@
 <a href="/users/index/<%= attendee.id %>" id="icon_id<%= attendee.id %>">
 	<div class="inline-icon-container">
 		<div class="inline-icon">
-			<%= image_tag "/users/serve_photo/#{attendee.image}", :class => "img-responsive img-rounded icon-image", :alt => "#{attendee.first_name}" %>
+			<div class="square-image icon-image img-responsive" alt="<%=attendee.first_name%>" style="background-image:url('/users/serve_photo/<%= attendee.image %>')"></div>
 		</div>
 		<div class="icon-title">
 			<p><%= attendee.first_name %></p>

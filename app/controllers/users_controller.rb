@@ -184,7 +184,10 @@ class UsersController < ApplicationController
   end
 
   def search_results
-    query = params[:query].downcase
+    query = ""
+    if params[:query].present? then
+      query = params[:query].downcase
+    end
     @results = []
     if !query.blank? then
       User.all.each do |user|

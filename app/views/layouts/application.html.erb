@@ -80,6 +80,9 @@
 	<div id="app-nav-placeholder">
 	</div>
 <% end %>
+	
+<a href="#" class="btn btn-primary col-xs-2 col-xs-offset-5 add-button" id="account_button" role="button"> + </a>
+
 <% if session[:logged_in] then %>
 	<% if controller.controller_name.eql?("users") && controller.action_name.eql?("index") then %>
 		<% if params[:id].to_i == session[:user_id].to_i && !session[:user_id].nil? then %>

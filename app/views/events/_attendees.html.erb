@@ -1,8 +1,7 @@
-<h4>Also Going:</h4>
+<h4>Going:</h4>
 <hr>
 <div class="attendee-section-<%= event.id %>">
 <% for attendee in event.users do %>
 	<%= render partial: "user_icon", locals: { attendee: attendee } %>
 <% end %>
 </div>
-<hr>
