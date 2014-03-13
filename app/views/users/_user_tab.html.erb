@@ -1,7 +1,7 @@
 <ul class="media-list">
 <% for user in users do %>
 	<% if user.id.to_i != session[:user_id].to_i || params[:id].to_i == user.id.to_i then %>
-		<li class="media no-tab-spacing">
+		<li class="media no-tab-spacing user-tab">
 			<a class="pull-left" href="#">
 				<div class="col-xs-12 tab-image">
 					<div class="circular-image media-object img-responsive" alt="<%=user.first_name%>" style="background-image:url('/users/serve_photo/<%= user.image %>')"></div>

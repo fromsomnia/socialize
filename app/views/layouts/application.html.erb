@@ -81,19 +81,21 @@
 	</div>
 <% end %>
 	
-<a href="#" class="btn btn-success col-xs-2 col-xs-offset-5 add-button small-plus" id="plus-button" role="button"> + </a>
+<% @home = false %>
+<% if params[:id].present? && controller.controller_name.eql?("users") then %>
+	<% if params[:id].to_i == session[:user_id].to_i then %>
+		<% @home = true %>
+	<% end %>
+<% end %>
+	
+<% if !controller.action_name.eql?("edit") && !controller.action_name.eql?("create") && !@home then %>
+	<a href="#" class="btn btn-success col-xs-2 col-xs-offset-5 add-button small-plus" id="plus-button" role="button"> + </a>
+<% end %>
 
 <% if session[:logged_in] then %>
 	<% if controller.controller_name.eql?("users") && controller.action_name.eql?("index") then %>
-		<% if params[:id].to_i == session[:user_id].to_i && !session[:user_id].nil? then %>
-			<% at_account_page = true %>
-	  		<div class="bt-group btn-group-justified" id="edit-panel">
-	  			<a href="/users/edit/<%= params[:id] %>" class="btn btn-info btn-block">Edit Account</a>
-	  		</div>
-	  	<% elsif params[:id].nil? %>
-	  		<% at_friends_page = true %>
 
-	  		<div class="hidden-search" id="search-bar"> <!-- class="col-lg-6" -->
+			<div class="hidden-search" id="search-bar"> <!-- Search Bar -->
 	  			<form action="/users/search_results">
 					<div class="input-group" id="add-friends-panel">
 	      				<input name="query" type="text" class="form-control" placeholder="Search for friends" id="search-friends-input">
@@ -104,6 +106,13 @@
     			</form>
 			</div><!-- /.col-lg-6 -->
 
+		<% if params[:id].to_i == session[:user_id].to_i && !session[:user_id].nil? then %>
+			<% at_account_page = true %>
+	  		<div class="bt-group btn-group-justified" id="edit-panel">
+	  			<a href="/users/edit/<%= params[:id] %>" class="btn btn-info btn-block">Edit Account</a>
+	  		</div>
+	  	<% elsif params[:id].nil? %>
+	  		<% at_friends_page = true %>
 	  	<% end %>
 	<% elsif %>
 		<% if controller.action_name.eql?("search_results") then %>

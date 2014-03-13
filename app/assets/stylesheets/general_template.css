@@ -232,6 +232,20 @@ margin: 0;
 	max-width: 400px;
 }
 
+.user {
+	box-shadow: 0px 0px 25px 5px #dddddd;
+	border-radius: 6px;
+	border: solid 1px;
+	border-color: #ffffff;
+}
+
+.user-tab {
+	box-shadow: 0px 0px 25px 5px #dddddd;
+	border-radius: 6px;
+	border: solid 1px;
+	border-color: #ffffff;
+}
+
 .edit-user-image {
 	margin: 0 auto;
 }
@@ -349,7 +363,7 @@ button.edit-button {
 }
 
 div.user-tab-centered {
-	margin-top: 30px;
+	margin-top: 16px;
 }
 
 div.fitted-event {
