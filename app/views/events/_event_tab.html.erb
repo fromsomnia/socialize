@@ -21,9 +21,9 @@
 					</div>
 				</a>
 				<div class="media-body">
-					<h4 class="media-heading">
+					<h3 class="media-heading">
 						<a href="/events/index/<%= event.id %>"><%= event.title %></a>
-					</h4>
+					</h3>
 					<% if !event.description.blank? then %>
 						<% if event.description.length > 22 then %>
 							<p><%= event.description[0,22] + " " %><a href="/events/index/<%= event.id %>">...more >></a></p>

@@ -6,6 +6,14 @@ body {
 
 }
 
+.not-attending-event a {
+	color: #999;
+}
+
+.not-attending-event a:hover {
+	color: #333;
+}
+
 .full-description-event-title {
 	text-align: center;
 }
@@ -416,6 +424,14 @@ margin: 0;
 
 .attending-event {
 	background-color: #95DB8F;
+}
+
+.attending-event a {
+	color: #4cae4c;
+}
+
+.attending-event a:hover {
+	color: #003D00;
 }
 
 div.event-object {
