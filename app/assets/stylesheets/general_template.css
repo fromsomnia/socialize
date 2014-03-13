@@ -185,6 +185,7 @@ a:hover {
 	right: 0px;
 	border-radius: 4px;
 	font-size: 14px;
+	cursor: pointer; cursor: hand;
 }
 
 .event-info-padding {
