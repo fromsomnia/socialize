@@ -6,14 +6,50 @@ body {
 
 }
 
+.ui-autocomplete li.ui-menu-item a.ui-state-focus {
+	background-image: none;
+	background-color: #428bca;
+	color: #005580;
+}
+
+
+.ui-autocomplete li a{
+	background-image: none;
+	background-color: #fff;
+}
+
 hr {
 	margin-top: 10px;
 	margin-bottom: 10px;
 	border-color: #ddd;
 }
 
+#plus-button {
+	border-top-right-radius: 0;
+	border-top-left-radius: 0;
+	box-shadow: 0px 3px 10px 1px #888;
+}
+
+.add-button {
+	text-align: center;
+	padding-right: 0;
+	padding-left: 0;
+	position: absolute;
+	font-size: 12px;
+}
+
+.small-plus {
+	font-size: 14px;
+	height: 25px;
+	padding-top: 0;
+}
+
 .by-label {
 	text-align: center;
+}
+
+a:hover {
+	text-decoration: none;
 }
 
 .square-profile-picture .square-image {
@@ -21,6 +57,10 @@ hr {
 	height: 200px;
 	min-width: 150px;
 	margin: 0px auto;
+}
+
+.hidden-search {
+	display: none;
 }
 
 .inline-icon .square-image {
@@ -41,16 +81,15 @@ hr {
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #fff;
 }
 
 .tab-image .circular-image {
 	width: 75px;
 	height: 75px;
 	margin: 0px auto;
-}
-
-.add-button {
-	position: absolute;
 }
 
 .empty-account-prompt {
@@ -61,14 +100,20 @@ hr {
 	margin-bottom: 20px;
 }
 
+.plus-filler{
+	height: 20px;
+}
+
 .happening-now {
 	background-color: #5cb85c;
 	color: #003D00;
+	box-shadow: 0px 0px 5px 1px #003D00;
 }
 
 .happening-soon {
 	background-color: #FFFF85;
 	color: #808000;
+	box-shadow: 0px 0px 5px 1px #808000;
 }
 
 .happening-later {
@@ -80,6 +125,7 @@ hr {
 .happending-default {
 	background-color: #ddd;
 	color: #ccc;
+	box-shadow: 0px 0px 5px 1px #ccc;
 }
 
 
@@ -299,6 +345,7 @@ button.edit-button {
 	position: absolute;
 	left: 10px;
 	top: 10px;
+	box-shadow: 3px 3px 13px 1px #333;
 }
 
 div.user-tab-centered {
@@ -319,9 +366,14 @@ li.no-tab-spacing {
 	margin-top: 0px;
 }
 
-img.user-search-icon {
+.user-search-icon {
 	max-height: 50px;
 	max-width: 50px;
+	display: inline-block;
+}
+
+.user-search-icon-container {
+	display: inline-block;
 }
 
 img.edit-user-image {

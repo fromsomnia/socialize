@@ -81,7 +81,7 @@
 	</div>
 <% end %>
 	
-<a href="#" class="btn btn-primary col-xs-2 col-xs-offset-5 add-button" id="account_button" role="button"> + </a>
+<a href="#" class="btn btn-success col-xs-2 col-xs-offset-5 add-button small-plus" id="plus-button" role="button"> + </a>
 
 <% if session[:logged_in] then %>
 	<% if controller.controller_name.eql?("users") && controller.action_name.eql?("index") then %>
@@ -93,7 +93,7 @@
 	  	<% elsif params[:id].nil? %>
 	  		<% at_friends_page = true %>
 
-	  		<div> <!-- class="col-lg-6" -->
+	  		<div class="hidden-search" id="search-bar"> <!-- class="col-lg-6" -->
 	  			<form action="/users/search_results">
 					<div class="input-group" id="add-friends-panel">
 	      				<input name="query" type="text" class="form-control" placeholder="Search for friends" id="search-friends-input">
@@ -121,6 +121,8 @@
 	<% end %>
 <% end %>
 </div>
+
+<div class="plus-filler"></div>
 
 <% if at_account_page || at_friends_page then %>
 	<div class="container" id="edit-filler"></div>

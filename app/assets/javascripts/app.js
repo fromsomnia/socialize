@@ -27,7 +27,6 @@ $(document).ready(function() {
 }*/
 
 function timedReveal(obj, event) {
-	console.log("ENTERS TIME REVEAL");
     obj.unbind(event);
     obj.fadeOut(300).delay(2000).fadeIn(300, function(){
 		obj.click(function(){
@@ -36,11 +35,77 @@ function timedReveal(obj, event) {
 	});
 }
 
+function revealSearch(obj, event) {
+    obj.unbind(event);
+    if(window.location.pathname.indexOf("/events/index") != -1){
+    	if(obj.text() == " + "){
+    		obj.toggleClass("small-plus", 100, function(){
+    			$(this).text("Add Event");
+    		});
+    		obj.click(function(){
+    			window.location = "/events/create";
+    		});
+    		obj.focus();
+    		obj.blur(function(){
+    			$(this).text(" + ");
+    			$(this).unbind("click");
+    			$(this).unbind("blur");
+    			$(this).toggleClass("small-plus", 100);
+    			$(this).bind("click", function(event){
+    				revealSearch($(this), event);
+    			});
+    		});
+    	}
+    }else if(window.location.pathname.indexOf("/users/index") != -1){
+    	if(obj.text() == " + "){
+    		obj.toggleClass("small-plus", 100, function(){
+    			$(this).text("Add Friend");
+    		});
+    		obj.click(function(){
+    			$("#search-bar").slideDown(100, function(){
+    				$("#plus-button").hide();
+    				$("#search-friends-input").focus();
+    				$("#search-friends-input").blur(function(){
+    					$(this).unbind("blur");
+    					$("#search-friends-input").autocomplete( "close" );
+    					$("#search-bar").slideUp(100, function(){
+    						$("#plus-button").show();
+    					});
+    				});
+    			});
+    		});
+    		obj.focus();
+    		obj.blur(function(){
+    			$(this).text(" + ");
+    			$(this).unbind("click");
+    			$(this).unbind("blur");
+    			$(this).toggleClass("small-plus", 100);
+    			$(this).bind("click", function(event){
+    				revealSearch($(this), event);
+    			});
+    		});
+    	}
+    }
+    //$("#search-bar").slideDown( "slow", function(){
+    //	$(this).focusout(function{
+    //		alert("LOST FOCUS");
+    //	})
+    //});
+    //obj.fadeOut(300).delay(2000).fadeIn(300, function(){
+	//	obj.click(function(){
+	//		revealSearch(obj)
+	//	})
+	//});
+}
+
 /*
  * Function that is called when the document is ready.
  */
 function initializePage() {
 	console.log("Jascript Added!");
+	$("#plus-button").bind("click", function(event){
+		revealSearch($(this), event)
+	});
 	$(".event-info-container").each(function(){
 		var cover = $(this).find(".event-info-cover");
 		var cover_val = $(this).find(".event-info-cover").attr("class")
@@ -112,6 +177,8 @@ function initializePage() {
 		console.log("started event");
 	});
 
+
+
 	$( "#search-friends-input" ).autocomplete({
 		source: function( request, response ) {
 			$.ajax({
@@ -151,12 +218,14 @@ function initializePage() {
     })
 	.data( "ui-autocomplete" )._renderItem = function( ul, user ) {
 		ul.addClass("media-list");
-        return $( "<li class=\"media lined-bottom\"></li>" )
+        return $( "<li class=\"media search-result lined-bottom\"></li>" )
             .data( "user.autocomplete", user)
             .append(
             	"<a href=\"/users/index/" + user.id + "\">" +
-            	"<span class=\"pull-left\">" + 
-					"<img class=\"media-object img-responsive img-circle user-search-icon\" src=\"/users/serve_photo/" + user.image + "\">" +
+            	"<span class=\"pull-left\">" +
+            	"<div class=\"media-object tab-image user-search-icon-container col-xs-12\">" +
+					"<div class=\"circular-image icon-image user-search-icon img-responsive\" alt=" + user.first_name + " style=\"background-image:url('/users/serve_photo/" + user.image + "')\"></div>" +
+				"</div>" +
 				"</span>" +
 					"<div class=\"media-body centered-search-tab-body\">" +
 						"<h5 class=\"media-heading\">" +
