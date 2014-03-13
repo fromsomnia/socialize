@@ -15,7 +15,7 @@
 		<% end %>
 		<ul class="media-list event-media-list-spacing">
 			<li class="media">
-				<a class="pull-left">
+				<a class="pull-left" href="/users/index/<%= creator.id %>">
 					<div class="col-xs-12 tab-image">
 						<div class="circular-image media-object img-responsive" alt="<%=creator.first_name%>" style="background-image:url('/users/serve_photo/<%= creator.image %>')"></div>
 					</div>
@@ -24,7 +24,13 @@
 					<h4 class="media-heading">
 						<a href="/events/index/<%= event.id %>"><%= event.title %></a>
 					</h4>
-					<p><%= event.description %></p>
+					<% if !event.description.blank? then %>
+						<% if event.description.length > 22 then %>
+							<p><%= event.description[0,22] + " " %><a href="/events/index/<%= event.id %>">...more >></a></p>
+						<% else %>
+							<p><%= event.description %></p>
+						<% end %>
+					<% end %>
 					<p>By <a href="/users/index/<%= event.creator %>"><%= creator.first_name + " " + creator.last_name %></a></p>
 				</div>
 			</li>
@@ -40,6 +46,11 @@
 					<div class="relative-event-date"><%= event.getRelativeDate.to_s %></div>
 					<div class="relative-event-time"><%= event.getRelativeTime.to_s %></div>
 				</div>
+				<a href="/events/index/<%= event.id %>">
+					<span class="pull-left attendance">
+						<h4>GOING<span class="badge"><%= event.getNumAttendees %></span></h4>
+					</span>
+				</a>
 			</div>
 		</ul>
 

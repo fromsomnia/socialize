@@ -105,6 +105,10 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def getNumAttendees
+    return self.users.size
+  end
+
   def getRelativeDate
     Time.zone = TZInfo::Timezone.get('America/Los_Angeles')
     time = self.getDateTime

@@ -13,7 +13,7 @@
 				</button>
 			</form>
 		<% end %>
-		<h3>
+		<h3 class="full-description-event-title">
 			<a href="/events/index/<%= event.id %>"><%= event.title %></a>
 		</h3>
 		<div class="col-xs-12 square-profile-picture">
@@ -43,13 +43,15 @@
 
 		<p><%= event.description %></p>
 
-		<ul class="event-info">
-			<% if !event.place.blank? then %>
-				<li>PLACE: <%= event.place %></li>
-			<% end %>
-			<li>DATE: <%= event.getPurtyDate %></li>
-			<li>TIME: <%= event.getPurtyTime %></li>
-		</ul>
+		<div class="event-info-full-container">
+			<ul class="event-info">
+				<% if !event.place.blank? then %>
+					<li>PLACE: <%= event.place %></li>
+				<% end %>
+				<li>DATE: <%= event.getPurtyDate %></li>
+				<li>TIME: <%= event.getPurtyTime %></li>
+			</ul>
+		</div>
 
 		<div>	
 			<%= render partial: "attendees", locals: { event: event } %>
