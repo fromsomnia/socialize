@@ -82,6 +82,7 @@
 <% end %>
 	
 <% @home = false %>
+<% @plus_filler = false %>
 <% if params[:id].present? && controller.controller_name.eql?("users") then %>
 	<% if params[:id].to_i == session[:user_id].to_i then %>
 		<% @home = true %>
@@ -89,6 +90,7 @@
 <% end %>
 	
 <% if !controller.action_name.eql?("edit") && !controller.action_name.eql?("create") && !@home then %>
+	<% @plus_filler = true %>
 	<a href="#" class="btn btn-success col-xs-2 col-xs-offset-5 add-button small-plus" id="plus-button" role="button"> + </a>
 <% end %>
 
@@ -131,7 +133,9 @@
 <% end %>
 </div>
 
-<div class="plus-filler"></div>
+<% if @plus_filler then %>
+	<div class="plus-filler"></div>
+<% end %>
 
 <% if at_account_page || at_friends_page then %>
 	<div class="container" id="edit-filler"></div>

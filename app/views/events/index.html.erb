@@ -1,4 +1,4 @@
-<div class="container" id="all-users-container">
+<div class="container" id="all-events-container">
 	<% if params[:id].nil? then %>
 		<% if !@events.blank? then %>
 			<%= render partial: "event_tab", locals: { events: @events } %>

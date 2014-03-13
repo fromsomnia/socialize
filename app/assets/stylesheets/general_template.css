@@ -227,7 +227,7 @@ margin: 0;
 }
 
 #all-users-container > .user {
-	margin-top: 50px;
+	margin-top: 40px;
 	background-color: #eee;
 	max-width: 400px;
 }
@@ -261,13 +261,13 @@ margin: 0;
 }
 
 #all-users-container {
-	padding-top: 150px;
+	padding-top: 120px;
 	padding-bottom: 50px;
 	max-width: 400px;
 }
 
 #all-events-container {
-	padding-top: 150px;
+	padding-top: 155px;
 	padding-bottom: 50px;
 }
 
