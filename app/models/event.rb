@@ -18,6 +18,10 @@ class Event < ActiveRecord::Base
   def isCurrent?
     return self.getDateTime + (60 * 60 * 3) >= Time.now
   end
+
+  def isNow?
+    return (self.isCurrent? && self.getDateTime <= Time.now)
+  end
 	
   attr_accessible :title, :description, :date, :time, :place, :address, :creator
   has_and_belongs_to_many :users

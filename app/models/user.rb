@@ -27,6 +27,12 @@ class User < ActiveRecord::Base
 		return self.getCurrentEvents.include?(event)
 	end
 
+	def getNumFriendRequests
+		current_friend_id = Friend.find_by_user_id(self.id)
+		requests = Friendship.find(:all, :conditions => { :friend_id => current_friend_id, :accepted => false})
+		return requests.size
+	end
+
 	def getEventsByUser
 		@userEvents = Event.find(:all, :conditions => { :creator => self.id })
 		return @userEvents
@@ -58,6 +64,16 @@ class User < ActiveRecord::Base
 		return @currentEventsAttending
 	end
 
+	def getNumEventsAttendingNow
+		@eventsAttendingNow = []
+		events = self.getEventsAttending
+		events.each do |event|
+			if event.isNow? then
+				@eventsAttendingNow << event
+			end
+		end
+		return @eventsAttendingNow.size
+	end
 
 
 	def getAllEvents

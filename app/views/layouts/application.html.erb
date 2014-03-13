@@ -43,6 +43,7 @@
 <div class="container" id="app_header">
 	<a href="/events/index"><h1 id="website_title">SOCIALIZE</h1></a>
 
+<% logged_in_user = nil %>
 <% if !session[:user_id].nil? then %>
 	<div class="bt-group btn-group-justified" id="logout_panel">
 	<% logged_in_user = User.find(session[:user_id]) %>
@@ -52,6 +53,8 @@
 
 <% if session[:logged_in] then %>
 
+	<% num_friend_requests = logged_in_user.getNumFriendRequests %>
+	<% num_events_now = logged_in_user.getNumEventsAttendingNow %>
 	<% home_selected = "" %>
 	<% friends_selected ="" %>
 	<% account_selected ="" %>
@@ -66,8 +69,8 @@
 	<% end %>
 
 	<div class="bt-group btn-group-justified" id="app_nav">
-		<a href="/events/index" class="btn btn-primary <%= home_selected %>" id="home_button" role="button">Events <span id="home_badge" class="badge"></span></a>
-		<a href="/users/index" class="btn btn-primary <%= friends_selected %>" id="friends_button" role="button">Friends <span id="friends_badge" class="badge"></span></a>
+		<a href="/events/index" class="btn btn-primary <%= home_selected %>" id="home_button" role="button">Events <span id="home_badge" class="badge pull-right"><%= num_events_now %></span></a>
+		<a href="/users/index" class="btn btn-primary <%= friends_selected %>" id="friends_button" role="button">Friends <span id="friends_badge" class="badge pull-right"><%= num_friend_requests %></span></a>
 
 		<% home_account = "" %>
 		<% if logged_in_user then %>
