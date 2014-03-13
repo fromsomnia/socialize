@@ -11,7 +11,7 @@ body {
 }
 
 .not-attending-event a:hover {
-	color: #333;
+	color: #666;
 }
 
 .full-description-event-title {
@@ -427,11 +427,11 @@ margin: 0;
 }
 
 .attending-event a {
-	color: #4cae4c;
+	color: #197b19;
 }
 
 .attending-event a:hover {
-	color: #003D00;
+	color: #225f22;
 }
 
 div.event-object {

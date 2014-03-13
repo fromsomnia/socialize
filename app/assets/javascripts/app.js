@@ -26,6 +26,44 @@ $(document).ready(function() {
 	});
 }*/
 
+function buttonToggle(obj, event) {
+	obj.unbind(event);
+	var enclosing_event = obj.closest(".event-object");
+	console.log("GETS HERE");
+	if(enclosing_event.hasClass("attending-event")){
+		enclosing_event.switchClass("attending-event", "not-attending-event", 1000, function(){
+			obj.toggleClass("btn-success");
+			obj.toggleClass("btn-default");
+
+			var current_text = obj.attr("value")
+			if(current_text == "Leave Event"){
+				obj.attr("value","Join Event");
+			}else{
+				obj.attr("value", "Leave Event");
+			}
+			obj.click(function(){
+				buttonToggle(obj)
+			})
+		});
+	}else{
+		enclosing_event.switchClass("not-attending-event", "attending-event", 1000, function(){
+			obj.toggleClass("btn-success");
+			obj.toggleClass("btn-default");
+			
+			var current_text = obj.attr("value")
+			if(current_text == "Leave Event"){
+				obj.attr("value","Join Event");
+			}else{
+				obj.attr("value", "Leave Event");
+			}
+			obj.click(function(){
+				buttonToggle(obj)
+			})
+		});
+		ga("send", "event", "joinEvent", "click");
+	}
+}
+
 function timedReveal(obj, event) {
     obj.unbind(event);
     obj.fadeOut(300).delay(2000).fadeIn(300, function(){
@@ -131,13 +169,17 @@ function initializePage() {
 					var event_val = $(this).find(".event_id").attr("value");
 					var id_val = $(this).find(".user_id").attr("value");
 					var icon_id = "#icon_id" + id_val;
+					var button = $(this).find(".btn");
 					if(response.length == 1){
 						$(this).find(icon_id).fadeOut(1000).queue(function() { 
-    						$(this).dequeue();
-       					 	$(this).remove();
+							$(this).dequeue();
+							$(this).remove();
     					});
 					}else{
-						$(response).appendTo(".attendee-section-" + event_val).hide().fadeIn(2000);
+						$(response).appendTo(".attendee-section-" + event_val).hide().fadeIn(2000).queue(function(){
+							$(this).dequeue();
+							$(this).remove();
+						});
 					}
 				}
 			});
@@ -146,25 +188,8 @@ function initializePage() {
 	});
 
 	$("div.event-object").each(function(index){
-		var button = $(this).find(".btn");
-		button.click(function(){
-			var enclosing_event = $(this).closest(".event-object");
-
-			if(enclosing_event.hasClass("attending-event")){
-				enclosing_event.switchClass("attending-event", "not-attending-event", 1000);
-			}else{
-				enclosing_event.switchClass("not-attending-event", "attending-event", 1000);
-				ga("send", "event", "joinEvent", "click");
-			}
-			$(this).toggleClass("btn-success");
-       		$(this).toggleClass("btn-default");
-
-			var current_text = $(this).attr("value")
-			if(current_text == "Leave Event"){
-				$(this).attr("value","Join Event");
-			}else{
-				$(this).attr("value", "Leave Event");
-			}
+		$(this).find(".btn").bind("click", function(event){
+			buttonToggle($(this), event);
 		});
 	});
 
