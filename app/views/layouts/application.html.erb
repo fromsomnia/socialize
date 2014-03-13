@@ -40,19 +40,36 @@
 </head>
 <body>
 
-<div class="container" id="app_header">
-	<a href="/events/index"><h1 id="website_title">SOCIALIZE</h1></a>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container-fluid">
+  	<div class="navbar-header">
+  		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#top-nav">
+  			<span class="sr-only">Toggle navigation</span>
+  			<span class="icon-bar"></span>
+  			<span class="icon-bar"></span>
+  			<span class="icon-bar"></span>
+    	</button>
+  		<a class="navbar-brand" href="/events/index/">Socialize</a>
+  	</div>
 
-<% logged_in_user = nil %>
-<% if !session[:user_id].nil? then %>
-	<div class="bt-group btn-group-justified" id="logout_panel">
-	<% logged_in_user = User.find(session[:user_id]) %>
-		<a href="/events/logout" class="btn btn-info btn-block">Hi <%= logged_in_user.first_name %>! <span id="logout_badge" class="badge">Log Out</span></a>
-	</div>
-<% end %>
+  	<% if session[:logged_in] then %>
+  		<% logged_in_user = User.find(session[:user_id].to_i) %>
+	    <div class="collapse navbar-collapse" id="top-nav">
+	    	<p class="navbar-text navbar-right">Hi <a href="/users/index/<%= logged_in_user.id %>" class="navbar-link"><%= logged_in_user.first_name %></a>!</p>
+	          <ul class="nav navbar-nav">
+	            <li><a href="/users/index/<%= session[:user_id] %>">My Account</a></li>
+	            <li><a href="/events/logout">Logout</a></li>
+	          </ul>
+	    </div>
+	<% end %>
+  </div>
+</nav>
+
+<div class="container" id="app_header">
 
 <% if session[:logged_in] then %>
-
+	
+	<% logged_in_user = User.find(session[:user_id].to_i) %>
 	<% num_friend_requests = logged_in_user.getNumFriendRequests %>
 	<% num_events_now = logged_in_user.getNumEventsAttendingNow %>
 	<% home_selected = "" %>
@@ -78,14 +95,8 @@
 	<div class="bt-group btn-group-justified" id="app_nav">
 		<a href="/events/index" class="btn btn-primary <%= home_selected %>" id="home_button" role="button">Events <span id="home_badge" class="badge pull-right"><%= num_events_now %></span></a>
 		<a href="/users/index" class="btn btn-primary <%= friends_selected %>" id="friends_button" role="button">Friends <span id="friends_badge" class="badge pull-right"><%= num_friend_requests %></span></a>
-
-		<% home_account = "" %>
-		<% if logged_in_user then %>
-			<% home_account = logged_in_user.id %>
-		<% end %>
-
-		<a href="/users/index/<%= home_account %>" class="btn btn-primary <%= account_selected %>" id="account_button" role="button">Account <span id="account_badge" class="badge"></span></a>
 	</div>
+
 <% else %>
 	<div id="app-nav-placeholder">
 	</div>
@@ -170,11 +181,7 @@
 <%= yield %>
 
 <% if session[:logged_in] && !controller.action_name.eql?("create") && !controller.action_name.eql?("edit") %>
-	<nav class="navbar navbar-custom navbar-fixed-bottom" role="navigation">
-		<form class="navbar-form" role="add_event" id="add-event-bar" action="/events/create">
-			<button type="submit" class="btn btn-primary navbar-btn center-block" id="submit-button-block">Add Event</button>
-		</form>
-	</div>
+
 <% else %>
 	<div class="navbar-fixed-bottom" id="new-event-placeholder">
 	</div>
