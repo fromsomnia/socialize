@@ -1,10 +1,9 @@
 <% if users.length > 0 then %>
-	<hr>
 	<h3>Friend Requests</h3>
 	<hr>
 	<ul class="media-list">
 	<% for user in users do %>
-		<li class="media no-tab-spacing request-tab">
+		<li class="media no-tab-spacing request-tab user-tab">
 			<a class="pull-left" href="/users/index/<%= user.id %>">
 				<div class="col-xs-12 tab-image">
 					<div class="circular-image media-object user-tab-icon img-responsive" alt="<%=user.first_name%>" style="background-image:url('/users/serve_photo/<%= user.image %>')"></div>

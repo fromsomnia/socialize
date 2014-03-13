@@ -52,6 +52,10 @@ a:hover {
 	text-decoration: none;
 }
 
+.is-attending {
+	text-align: center;
+}
+
 .square-profile-picture .square-image {
 	width: 200px;
 	height: 200px;
@@ -74,6 +78,9 @@ a:hover {
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;	
+	border-style: solid;
+	border-width: 1px;
+	border-color: #fff;
 }
 
 .circular-image {

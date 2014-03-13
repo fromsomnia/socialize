@@ -6,8 +6,11 @@
 			<div class="col-xs-12 square-profile-picture">
 				<div class="square-image media-object img-responsive" alt="<%=user.first_name%>" style="background-image:url('/users/serve_photo/<%= user.image %>')"></div>
 			</div>
+			<div class="container">
+			<hr>
 			<p><%= user.description %></p>
 			<hr>
+			</div>
 			<% logged_in_user = User.find(session[:user_id].to_i) %>
 			<% @events = user.getCurrentEventsAttending %>
 			<% if !@events.nil? then %>
@@ -17,10 +20,10 @@
 				<% @user_name = user.first_name %>
 				<% @verb = "is" %>
 				<% if user.id.to_i == session[:user_id].to_i then %>
-					<% @user_name = "You" %>
+					<% @user_name = "you" %>
 					<% @verb = "are" %>
 				<% end %>
-				<h4><a href ="/users/index/<%= user.id %>"><%= @user_name %></a> <%= @verb %> attending:</h4>
+				<h4 class="is-attending"><a href ="/users/index/<%= user.id %>"><%= @user_name %></a> <%= @verb %> attending</h4>
 				<div class="container fitted-event">
 					<%= render partial: "events/event_tab", locals: { events: @events} %>
 				</div>
