@@ -75,6 +75,11 @@ class UsersController < ApplicationController
   end
 
   def delete_friend
+    friend_id = params[:user_id].to_i
+    @user = User.find(friend_id)
+  end
+
+  def remove_friend
     friendship = Friendship.find(:all, :conditions => { :user_id => params[:user_id], :friend_id => Friend.find_by_user_id(session[:user_id]).id })[0]
     inv_friendship = Friendship.find(:all, :conditions => { :user_id => session[:user_id], :friend_id => Friend.find_by_user_id(params[:user_id])})[0]
     Friendship.delete(friendship)

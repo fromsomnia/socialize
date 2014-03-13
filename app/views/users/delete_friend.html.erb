@@ -1,0 +1,29 @@
+<div class="container">
+<div class="container" id="delete-account-form">
+	<div id="delete-account-question">
+		<h3>Are you sure you want to remove <a href="/users/index/<%= @user.id %>"><%= @user.first_name %></a> as a friend?</h3>
+	</div>
+	
+	<a href="/users/index/<%= @user.id %>">
+	<div class="col-xs-12 square-profile-picture">
+		<div class="square-image media-object img-responsive" alt="<%=@user.first_name%>" style="background-image:url('/users/serve_photo/<%= @user.image %>')"></div>
+	</div>
+	</a>
+
+	<form action="/users/remove_friend" class="form-horizontal remove-friend-form" role="form">
+		<div class="form-group">
+		  	<input type="text" class="form-control hidden" name="user_id" id="accept-request-input" value="<%= @user.id %>">
+
+			<div class="col-xs-offset-3 col-xs-6">
+		    	<button class="btn btn-danger btn-block" id="update_button">Remove Friend</button>
+		    </div>
+
+		</div>
+		<div class="form-group delete-account-form-group">
+	  		<div class="container col-xs-offset-3 col-xs-6 cancel-back-button">
+				<%= link_to_function "Keep Friend", "history.back()", class: "btn btn-primary btn-block" %>
+	    	</div>
+	    </div>
+	</form>
+</div>
+</div>

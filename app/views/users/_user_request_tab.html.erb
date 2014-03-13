@@ -6,7 +6,9 @@
 	<% for user in users do %>
 		<li class="media no-tab-spacing request-tab">
 			<a class="pull-left" href="/users/index/<%= user.id %>">
-					<%= image_tag "/users/serve_photo/#{user.image}", :class => "media-object img-responsive img-circle user-tab-icon", :alt => "#{user.first_name}" %>
+				<div class="col-xs-12 tab-image">
+					<div class="circular-image media-object user-tab-icon img-responsive" alt="<%=user.first_name%>" style="background-image:url('/users/serve_photo/<%= user.image %>')"></div>
+				</div>
 			</a>
 			<div class="media-body user-tab-centered">
 				<h4 class="media-heading">
