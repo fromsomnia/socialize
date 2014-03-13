@@ -27,20 +27,25 @@ class EventsController < ApplicationController
   				session[:user_id] = user.id
   				session[:logged_in] = true
   				@events = Event.all
+          flash[:notice] = "Login Successful"
   				redirect_to "/events/index"
   			else
+          flash[:notice] = "Login Failed"
   				render "/events/login_screen"
   			end
   		else
+        flash[:notice] = "Login Failed"
   			render "/events/login_screen"
   		end
   	else
+      flash[:notice] = "Login Failed"
   		render "/events/login_screen"
   	end
   end
 
   def logout
   	reset_session
+    flash[:notice] = "Logged Out"
   	redirect_to "/events/login_screen"
 
   end
@@ -86,10 +91,12 @@ class EventsController < ApplicationController
   	if @new_event.save
       User.find(session[:user_id]).events << @new_event
   		#@new_event = Event.new
+      flash[:notice] = "Event Created"
 		redirect_to "/events/index/#{@new_event.id}"
     else
 		 #@new_event = Event.new
 		 #redirect_to :action => "create"
+     flash[:notice] = "Failed Event Creation"
 		render "create"
     end
   end
@@ -110,8 +117,10 @@ class EventsController < ApplicationController
     if params[:id] then
       @event = Event.find(params[:id])
       if @event.update_attributes(params[:event]) then
+        flash[:notice] = "Event Updated"
         redirect_to "/events/index/#{params[:id]}"
       else
+        flash[:notice] = "Failed Event Update"
         render "edit"
 	#redirect_to "/events/edit/#{@event.id}"
       end
@@ -137,8 +146,10 @@ class EventsController < ApplicationController
     puts params
     if user.events.exists?(event.id) then
         user.events.delete(event)
+        flash[:notice] = "Left Event"
     else
         user.events << event
+        flash[:notice] = "Joined Event"
     end
     render :nothing => true
   end

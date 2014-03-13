@@ -1,11 +1,13 @@
 <div class="container" id="create-event-form">
 	<% if @new_event.errors.any? %>
-		<h3 class="error-message">Errors: <%= pluralize(@new_event.errors.count, "error") %> prohibited this record from being saved</h3>
-		<ul>
-			<% @new_event.errors.full_messages.each do |msg| %>
-				<li class="error-message"><%= msg %></li>
-			<% end %>
-		</ul>
+		<div class="errors-container">
+			<h3 class="error-message">Errors: <%= pluralize(@new_event.errors.count, "error") %> prohibited this record from being saved</h3>
+			<ul>
+				<% @new_event.errors.full_messages.each do |msg| %>
+					<li class="error-message"><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
 	<% end %>
 	<%= form_for @new_event, url: {action: "save"}, html: {class: "form-horizontal", role: "form"} do |f|%>
 		<div class="form-group">

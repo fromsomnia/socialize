@@ -29,7 +29,7 @@
 				</div>
 			<% elsif user.id == session[:user_id].to_i then %>
 				<div class="empty-account-prompt">
-					<h5>You are not currently attending any events</h5>
+					<h5>you are not currently attending any events</h5>
 					<p><a href="/events/create">click here to create a new event</a></p>
 					<p><a href="/users/search_results">click here to add a new friend</a></p>
 				</div>
@@ -39,7 +39,7 @@
 				<% if !home_account then %>
 		  			<div class="form-group">
 		  				<input type="text" class="form-control hidden" name="user_id" id="accept-request-input" value="<%= user.id %>">
-		    			<div class="col-sm-offset-1 col-sm-10">
+		    			<div class="col-xs-offset-3 col-xs-6">
 		    				<button class="btn btn-danger btn-block" id="update_button">Remove Friend</button>
 		    			</div>
 		  			</div>

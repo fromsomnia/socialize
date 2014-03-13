@@ -1,6 +1,6 @@
 <div class="container" id="edit-user-form">
 	<% if @user.errors.any? %>
-		<h3 class="error-message">Errors: <%= pluralize(@user.errors.count, "error") %> prohibited this record from being saved</h3>
+		<h3 class="error-message">Please correct the following errors</h3>
 		<ul>
 			<% @user.errors.full_messages.each do |msg| %>
 				<li class="error-message"><%= msg %></li>

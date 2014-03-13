@@ -4,9 +4,8 @@
 			<%= render partial: "event_tab", locals: { events: @events } %>
 		<% else %>
 			<div class="empty-account-prompt">
-				<h5>You do not currently have any events to view</h5>
+				<h5>you do not currently have any events to view</h5>
 				<p><a href="/events/create">click here to create a new event</a></p>
-				<p><a href="/users/search_results">click here to add a new friend</a></p>
 			</div>
 		<% end %>
 	<% else %>

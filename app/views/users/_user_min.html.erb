@@ -9,7 +9,7 @@
 
     	<%= form_for @new_friendship, url: {:controller => "users", :action => "request_friend"}, html: {class: "form-horizontal", role: "form"} do |f|%>
 	  		<div class="form-group">
-	    		<div class="col-sm-offset-2 col-sm-10">
+	    		<div class="col-xs-offset-3 col-xs-6">
 	    			<% if requested then %>
 	    				<%= f.submit "Friend Requested", disabled: "", class: "btn btn-default btn-block", id: "update_button" %>
 	    			<% else %>
@@ -18,7 +18,7 @@
 	    		</div>
 	  		</div>
 	  		<div class="form-group">
-	  			<div class="container col-sm-offset-2 col-sm-10 cancel-back-button">
+	  			<div class="container col-xs-offset-3 col-xs-6 cancel-back-button">
 					<%= link_to_function "Back", "history.back()", class: "btn btn-primary btn-block" %>
 	    		</div>
 	    		<%= f.text_field(:user_id, class: "form-control hidden user_id", value:"#{session[:user_id]}") %>

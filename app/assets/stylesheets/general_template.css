@@ -6,6 +6,18 @@ body {
 
 }
 
+#notice-banner {
+	text-align: center;
+	font-size: 20px;
+	position: fixed;
+	z-index: 10;
+	top: 50%;
+	height: 30px;
+	width: 100%;
+	background-color: #428bca;
+	color: #fff;
+}
+
 .user-description-container {
 	max-width: 360px;
 }

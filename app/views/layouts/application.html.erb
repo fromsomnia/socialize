@@ -68,6 +68,13 @@
 		<% home_selected = "active" %>
 	<% end %>
 
+	<% if num_friend_requests == 0 then %>
+		<% num_friend_requests = "" %>
+	<% end %>
+	<% if num_events_now == 0 then %>
+		<% num_events_now = "" %>
+	<% end %>
+
 	<div class="bt-group btn-group-justified" id="app_nav">
 		<a href="/events/index" class="btn btn-primary <%= home_selected %>" id="home_button" role="button">Events <span id="home_badge" class="badge pull-right"><%= num_events_now %></span></a>
 		<a href="/users/index" class="btn btn-primary <%= friends_selected %>" id="friends_button" role="button">Friends <span id="friends_badge" class="badge pull-right"><%= num_friend_requests %></span></a>
@@ -91,11 +98,15 @@
 		<% @home = true %>
 	<% end %>
 <% end %>
+
+<!-- PLUS BUTTON -->
 	
-<% if !controller.action_name.eql?("edit") && !controller.action_name.eql?("create") && !@home then %>
+<% if !controller.action_name.eql?("edit") && !controller.action_name.eql?("create") && !@home && session[:logged_in] then %>
 	<% @plus_filler = true %>
 	<a href="#" class="btn btn-success col-xs-2 col-xs-offset-5 add-button small-plus" id="plus-button" role="button"> + </a>
 <% end %>
+
+<!-- SEARCH BAR -->
 
 <% if session[:logged_in] then %>
 	<% if controller.controller_name.eql?("users") && controller.action_name.eql?("index") then %>
@@ -146,6 +157,14 @@
 
 <% if controller.action_name.eql?("search_results") then %>
 	<div class="container" id="edit-filler"></div>
+<% end %>
+
+<!-- NOTICE BANNER -->
+
+<% if flash[:notice].present? then %>
+	<div id="notice-banner">
+		<%= flash[:notice] %>
+	</div>
 <% end %>
 
 <%= yield %>

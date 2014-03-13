@@ -6,8 +6,15 @@
 		<% requests.each do |request| %>
 			<% @req_users << request.user %>
 		<% end %>
-		<%= render partial: "user_request_tab", locals: { users: @req_users } %>
-		<%= render partial: "user_tab", locals: { users: @users } %>
+		<% if @req_users.blank? && @users.blank? then %>
+			<div class="empty-account-prompt">
+				<h5>you do not currently have any friends</h5>
+				<p><a href="/users/search_results">click here to add a new friend</a></p>
+			</div>
+		<% else %>
+			<%= render partial: "user_request_tab", locals: { users: @req_users } %>
+			<%= render partial: "user_tab", locals: { users: @users } %>
+		<% end %>
 	<% else %>
 		<% friendship = Friendship.find(:all, :conditions => { :user_id => session[:user_id], :friend_id => Friend.find_by_user_id(params[:id]).id }) %>
 		<% requested = false %>

@@ -43,7 +43,7 @@ class Event < ActiveRecord::Base
       end
     end
     Time.zone = TZInfo::Timezone.get('America/Los_Angeles')
-    dateTime = Time.new(year, month, day, hour, min, 0, "-08:00")
+    dateTime = Time.new(year, month, day, hour, min, 0, "-07:00")
     return dateTime
   end
 

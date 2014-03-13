@@ -48,10 +48,13 @@ class UsersController < ApplicationController
       inv_friendship.accepted = true
       @friendship.save
       inv_friendship.save
+      flash[:notice] = "Friend Added"
       redirect_to "/users/index"
     elsif @friendship.save then
+      flash[:notice] = "Friendship Requested"
       redirect_to "/users/index"
     else
+      flash[:notice] = "Friend Action Failed"
       redirect_to "/users/index"
     end
   end
@@ -65,12 +68,14 @@ class UsersController < ApplicationController
     inv_friendship.friend = Friend.find_by_user_id(friendship.user.id)
     inv_friendship.accepted = true
     inv_friendship.save
+    flash[:notice] = "Friend Added"
     redirect_to "/users/index"
   end
 
   def ignore_request
     friendship = Friendship.find(:all, :conditions => { :user_id => params[:user_id], :friend_id => Friend.find_by_user_id(session[:user_id]).id })[0]
     Friendship.delete(friendship)
+    flash[:notice] = "Request Ignored"
     redirect_to "/users/index"
   end
 
@@ -84,11 +89,13 @@ class UsersController < ApplicationController
     inv_friendship = Friendship.find(:all, :conditions => { :user_id => session[:user_id], :friend_id => Friend.find_by_user_id(params[:user_id])})[0]
     Friendship.delete(friendship)
     Friendship.delete(inv_friendship)
+    flash[:notice] = "Friend Removed"
     redirect_to "/users/index"
   end
 
   def delete
   	User.destroy(session[:user_id])
+    flash[:notice] = "Account Deleted"
   	redirect_to "/events/logout"
   end
 
@@ -120,9 +127,11 @@ class UsersController < ApplicationController
       friend = Friend.new
       friend.user_id = @new_user.id
       friend.save
+      flash[:notice] = "Account Created"
 		redirect_to "/users/index/#{@new_user.id}"
 	else
 		#@new_user = User.new
+    flash[:notice] = "Account Creation Failed"
 		render "create"
 		#render 'new'
 	end
@@ -132,6 +141,7 @@ class UsersController < ApplicationController
   	if params[:id].to_i == session[:user_id].to_i then
   		@user = User.find(session[:user_id])
   	else
+      flash[:notice] = "Cannot Edit Account"
   		redirect_to "/users/index"
   	end
   end
@@ -151,17 +161,25 @@ class UsersController < ApplicationController
       end
       params[:user][:image] = ""
     end
-  	if @user.update_attributes(params[:user])
-      if @photo != nil then
-        @photo.save 
-        @user.image = @photo.id
-        @user.save
-      end
-		  redirect_to "/users/index/#{@user.id}"
-	   else
-		#redirect_to "/users/edit/#{@user.id}"
-		  render "edit"
-	   end	
+    if !@user.password_valid?(params[:user][:password]) then
+      flash[:notice] = "Incorrect Password"
+      render "edit"
+    else
+      puts params[:user].to_json
+    	if @user.update_attributes(params[:user])
+        if @photo != nil then
+          @photo.save 
+          @user.image = @photo.id
+          @user.save
+        end
+        flash[:notice] = "Account Updated"
+  		  redirect_to "/users/index/#{@user.id}"
+  	   else
+  		#redirect_to "/users/edit/#{@user.id}"
+        flash[:notice] = "Account Update Failed"
+  		  render "edit"
+  	   end	
+    end
   end
 
   def create_photo
@@ -207,10 +225,10 @@ class UsersController < ApplicationController
   end
 
   def search
-    query = params[:query]
+    query = params[:query].downcase
     @results = []
     User.all.each do |user|
-      if (user.first_name + " " + user.last_name).include?(query) || user.username.include?(query) then
+      if (user.first_name + " " + user.last_name).downcase.include?(query) || user.username.downcase.include?(query) then
         if user.id.to_i != session[:user_id].to_i then
           @results << user
         end

@@ -142,7 +142,8 @@ class User < ActiveRecord::Base
 
 
 
-	validates :last_name, :first_name, :username, :password, :presence => true
+	validates :last_name, :first_name, :username, :presence => true
+	validates :password, :presence => { :message => "please provide your password" }
 	validates :username, :uniqueness => { :message => "already in use" }
 
 end
