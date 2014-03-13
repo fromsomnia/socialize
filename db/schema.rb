@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140305040423) do
+ActiveRecord::Schema.define(:version => 20140313141801) do
 
   create_table "events", :force => true do |t|
     t.string  "title"
@@ -53,7 +53,8 @@ ActiveRecord::Schema.define(:version => 20140305040423) do
     t.string "image"
     t.string "description"
     t.string "username"
-    t.string "password"
+    t.string "password_digest"
+    t.string "salt"
   end
 
 end

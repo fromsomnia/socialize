@@ -23,7 +23,7 @@ class EventsController < ApplicationController
   	if !(params[:username].nil?) && !(params[:password].nil?) then
   		user = User.find_by_username(params[:username])
   		if !user.nil? then
-  			if user.password.eql?params[:password] then
+  			if user.password_valid?params[:password] then
   				session[:user_id] = user.id
   				session[:logged_in] = true
   				@events = Event.all

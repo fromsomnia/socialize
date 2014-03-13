@@ -7,10 +7,26 @@ class User < ActiveRecord::Base
 		end
 	}
 
-	attr_accessible :first_name, :last_name, :image, :description, :username, :password
+	attr_accessible :first_name, :last_name, :image, :description, :username, :password, :password_digest, :salt
 	has_and_belongs_to_many :events
 	has_many :friendships
 	has_many :friends, through: :friendships
+
+	def password_valid?(value)
+        password_digest.eql?(Digest::SHA1.hexdigest(value.to_s + "" + salt.to_s))
+    end
+    
+    def password
+        @password
+    end
+    
+    def password=(password)
+        sal = Random.new.rand.to_s
+        p_digest = Digest::SHA1.hexdigest(password.to_s + "" + sal.to_s)
+        hash = {:salt => sal, :password_digest => p_digest}
+        update_attributes(hash)
+        @password = password
+    end
 
 	def getFriends
 		friendships = Friendship.find(:all, :conditions => { :user_id => self.id })
