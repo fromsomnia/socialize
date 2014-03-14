@@ -1,4 +1,4 @@
-<div class="container" id="all-users-container">
+<div id="all-users-container">
 	<% if params[:id].nil? then %>
 		<% current_friend_id = Friend.find_by_user_id(session[:user_id]) %>
 		<% requests = Friendship.find(:all, :conditions => { :friend_id => current_friend_id, :accepted => false}) %>

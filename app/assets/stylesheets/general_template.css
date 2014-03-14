@@ -363,11 +363,15 @@ margin: 0;
 #all-users-container {
 	margin-top: 70px;
 	margin-bottom: 50px;
+	margin-right: 7px;
+	margin-left: 7px;
 	max-width: 400px;
 }
 
 #all-events-container {
 	margin-top: 100px;
+	margin-left: 3px;
+	margin-right: 3px;
 	margin-bottom: 50px;
 }
 
