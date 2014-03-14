@@ -46,10 +46,13 @@
 		<div class="event-info-full-container">
 			<ul class="event-info">
 				<% if !event.place.blank? then %>
-					<li>PLACE: <%= event.place %></li>
+					<li><a>PLACE:</a> <%= event.place %></li>
 				<% end %>
-				<li>DATE: <%= event.getPurtyDate %></li>
-				<li>TIME: <%= event.getPurtyTime %></li>
+				<% if !event.address.blank? then %>
+					<li><a>ADDR:</a> <%= event.address %></li>
+				<% end %>
+				<li><a>DATE:</a> <%= event.getPurtyDate %></li>
+				<li><a>TIME:</a> <%= event.getPurtyTime %></li>
 			</ul>
 		</div>
 

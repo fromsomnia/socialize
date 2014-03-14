@@ -26,7 +26,8 @@
 					</h3>
 					<% if !event.description.blank? then %>
 						<% if event.description.length > 22 then %>
-							<p><%= event.description[0,22] + " " %><a href="/events/index/<%= event.id %>">...more >></a></p>
+							<p><%= event.description[0,22] + " " %></p>
+							<p class="more"><a href="/events/index/<%= event.id %>">...more >></a></p>
 						<% else %>
 							<p><%= event.description %></p>
 						<% end %>
