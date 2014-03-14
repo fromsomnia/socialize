@@ -68,12 +68,12 @@ p.more {
 	max-width: 400px;
 	border-style: solid 1px;
 	border-color: #808000;
-	box-shadow: 0px 0px 5px 1px;
+	box-shadow: 0px 0px 5px 1px #666;
 }
 
 .notice-banner-visible {
-	background-color: #428bca;
-	color: #fff;
+	background-color: #fff;
+	color: #666;
 }
 
 .user-description-container {
