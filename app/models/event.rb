@@ -57,50 +57,50 @@ class Event < ActiveRecord::Base
       if diff < 0 then
         return "started " + time.to_s + " min ago"
       else
-        return "in " + time.to_s + " min"
+        return "in about " + time.to_s + " min"
       end
     elsif diff.abs < (60*60*24) then
       time = (diff/(60*60)).to_i.abs
       if diff < 0 then
         if time.abs == 1 then
-          return "started " + time.to_s + " hour ago"
+          return "started about " + time.to_s + " hour ago"
         else
-          return "started " + time.to_s + " hours ago"
+          return "started about " + time.to_s + " hours ago"
         end
       else
         if time.abs == 1 then
-          return "in " + time.to_s + " hour"
+          return "in about " + time.to_s + " hour"
         else
-          return "in " + time.to_s + " hours"
+          return "in about " + time.to_s + " hours"
         end
       end
     elsif diff.abs < (60*60*24*7) then
       time = (diff/(60*60*24)).to_i.abs
       if time == 1 then
-        return ("in " + time.to_s + " day")
+        return ("in about " + time.to_s + " day")
       else
-        return ("in " + time.to_s + " days")
+        return ("in about " + time.to_s + " days")
       end
     elsif diff.abs < (60*60*24*30) then
       time = (diff/(60*60*24*7)).to_i.abs
       if time == 1 then
-        return "in " + time.to_s + " week"
+        return "in about " + time.to_s + " week"
       else
-        return "in " + time.to_s + " weeks"
+        return "in about " + time.to_s + " weeks"
       end
     elsif diff.abs < (60*60*24*365) then
       time = (diff/(60*60*24*30)).to_i.abs
       if time == 1 then
-        return "in " + time.to_s + " month"
+        return "in about " + time.to_s + " month"
       else 
-        return "in " + time.to_s + " months"
+        return "in about " + time.to_s + " months"
       end
     else
       time = (diff/(60*60*24*365)).to_i.abs
       if time == 1 then
-        return "in 1 year"
+        return "in about 1 year"
       else
-        return "in " + time.to_s + " years"
+        return "in about " + time.to_s + " years"
       end
     end
   end
