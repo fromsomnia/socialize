@@ -173,16 +173,14 @@
 <!-- NOTICE BANNER -->
 
 <% if flash[:notice].present? then %>
-	<div id="notice-banner">
+	<div id="notice-banner" class="notice-banner-visible col-xs-8 col-xs-offset-2">
 		<%= flash[:notice] %>
 	</div>
 <% end %>
 
 <%= yield %>
 
-<% if session[:logged_in] && !controller.action_name.eql?("create") && !controller.action_name.eql?("edit") %>
-
-<% else %>
+<% if !session[:logged_in] %>
 	<div class="navbar-fixed-bottom" id="new-event-placeholder">
 	</div>
 <% end %>

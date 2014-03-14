@@ -144,7 +144,7 @@ function initializePage() {
 	$("#plus-button").bind("click", function(event){
 		revealSearch($(this), event)
 	});
-	$("#notice-banner").delay(1000).fadeOut(3000);
+	$("#notice-banner").fadeOut(2000);
 	$(".event-info-container").each(function(){
 		var cover = $(this).find(".event-info-cover");
 		var cover_val = $(this).find(".event-info-cover").attr("class")

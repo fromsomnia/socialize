@@ -45,13 +45,21 @@ body {
 }
 
 #notice-banner {
+	border-radius: 6px;
 	text-align: center;
-	font-size: 20px;
+	padding-top: 4px;
+	font-size: 30px;
 	position: fixed;
 	z-index: 10;
-	top: 50%;
-	height: 30px;
-	width: 100%;
+	top: 33%;
+	height: 50px;
+	max-width: 400px;
+	border-style: solid 1px;
+	border-color: #808000;
+	box-shadow: 0px 0px 5px 1px;
+}
+
+.notice-banner-visible {
 	background-color: #428bca;
 	color: #fff;
 }
