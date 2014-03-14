@@ -63,9 +63,9 @@ class Event < ActiveRecord::Base
       time = (diff/(60*60)).to_i.abs
       if diff < 0 then
         if time.abs == 1 then
-          return "started about " + time.to_s + " hour ago"
+          return "started " + time.to_s + " hour ago"
         else
-          return "started about " + time.to_s + " hours ago"
+          return "started " + time.to_s + " hours ago"
         end
       else
         if time.abs == 1 then

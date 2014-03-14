@@ -112,7 +112,7 @@
 
 <!-- PLUS BUTTON -->
 	
-<% if !controller.action_name.eql?("edit") && !controller.action_name.eql?("create") && !@home && session[:logged_in] && !controller.action_name.eql?("delete_account") then %>
+<% if !controller.action_name.eql?("edit") && !controller.action_name.eql?("create") && !@home && session[:logged_in] && !controller.action_name.include?("delete") then %>
 	<% @plus_filler = true %>
 	<a class="btn btn-success col-xs-4 col-xs-offset-4 add-button small-plus" id="plus-button" role="button"> + </a>
 <% end %>
@@ -162,12 +162,18 @@
 	<div class="plus-filler"></div>
 <% end %>
 
-<% if at_account_page || at_friends_page then %>
-	<div class="container" id="edit-filler"></div>
+<!-- EDIT FILLER -->
+
+<% if at_account_page then %>
+	<div id="edit-filler"></div>
 <% end %>
 
-<% if controller.action_name.eql?("search_results") then %>
-	<div class="container" id="edit-filler"></div>
+<% if controller.controller_name.eql?("users") then %>
+	<% if controller.action_name.eql?("search_results") then %>
+		<div id="search-results-filler"></div>
+	<% else %>
+		<div id="general-user-filler"></div>
+	<% end %>
 <% end %>
 
 <!-- NOTICE BANNER -->

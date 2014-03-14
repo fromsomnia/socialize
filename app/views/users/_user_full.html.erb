@@ -26,7 +26,7 @@
 					<% @verb = "are" %>
 				<% end %>
 				<h4 class="is-attending"><a href ="/users/index/<%= user.id %>"><%= @user_name %></a> <%= @verb %> attending</h4>
-				<div class="fitted-event">
+				<div class="fitted">
 					<%= render partial: "events/event_tab", locals: { events: @events} %>
 				</div>
 			<% elsif user.id == session[:user_id].to_i then %>
