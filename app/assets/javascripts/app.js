@@ -178,7 +178,6 @@ function initializePage() {
 					}else{
 						$(response).appendTo(".attendee-section-" + event_val).hide().fadeIn(2000).queue(function(){
 							$(this).dequeue();
-							$(this).remove();
 						});
 					}
 				}
