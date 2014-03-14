@@ -6,6 +6,10 @@ body {
 
 }
 
+.user-title {
+	margin-left: 20px;
+}
+
 .attending-event .badge {
 	background-color: #197b19;
 }
@@ -425,7 +429,7 @@ margin: 0;
 }
 
 #delete-account-form {
-	margin-top: 155px;
+	margin-top: 100px;
 	margin-bottom: 50px;
 	box-shadow: 0px 0px 25px 5px #dddddd;
 	border-radius: 6px;
@@ -481,6 +485,8 @@ div.user-tab-centered {
 div.fitted-event {
 	max-width: inherit;
 	width: auto;
+	margin-right: 3px;
+	margin-left: 3px;
 }
 
 hr.divide-user-tabs {

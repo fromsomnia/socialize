@@ -112,7 +112,7 @@
 
 <!-- PLUS BUTTON -->
 	
-<% if !controller.action_name.eql?("edit") && !controller.action_name.eql?("create") && !@home && session[:logged_in] then %>
+<% if !controller.action_name.eql?("edit") && !controller.action_name.eql?("create") && !@home && session[:logged_in] && !controller.action_name.eql?("delete_account") then %>
 	<% @plus_filler = true %>
 	<a class="btn btn-success col-xs-4 col-xs-offset-4 add-button small-plus" id="plus-button" role="button"> + </a>
 <% end %>
